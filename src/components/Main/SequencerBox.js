@@ -1,4 +1,7 @@
+import * as Tone from "tone";
+
 import SequencerDropZone from "./SequencerDropZone";
+import Player from "./Player";
 
 export default function SequencerBox() {
   const arr = [1, 2, 3, 4, 5];
@@ -20,6 +23,7 @@ export default function SequencerBox() {
           </div>
         )
       }
+      <Player />
     </>
   );
 }

@@ -1,18 +1,21 @@
+import { useSelector } from "react-redux";
+
 import InstrumentSampleSource from "./InstrumentSampleSource";
+import { selectInstrument } from "../../feature/instrumentSlice";
 
 export default function InstrumentSampleBox() {
-  const arr = [1, 2, 3, 4, 5];
+  const instrument = useSelector(selectInstrument);
 
   return (
     <>
-      {arr.map((num, index) =>
+      {instrument.map(([instrumentType, samples], index) =>
         <div style={{ display: "flex" }} key={index}>
-          <div style={{ width: 70, height: 40, borderStyle: "solid" }}>여기는 악기 선택창</div>
-          <InstrumentSampleSource />
-          <InstrumentSampleSource />
-          <InstrumentSampleSource />
-          <InstrumentSampleSource />
-          <InstrumentSampleSource />
+          <div style={{ width: 70, height: 40, borderStyle: "solid" }}>{instrumentType}</div>
+          <InstrumentSampleSource sample={samples[index]} />
+          <InstrumentSampleSource sample={samples[index]} />
+          <InstrumentSampleSource sample={samples[index]} />
+          <InstrumentSampleSource sample={samples[index]} />
+          <InstrumentSampleSource sample={samples[index]} />
         </div>
       )}
     </>
