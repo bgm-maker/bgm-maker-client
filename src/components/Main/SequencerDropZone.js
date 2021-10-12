@@ -1,37 +1,24 @@
-import { useState } from "react";
-import { useDrop } from "react-dnd";
+import SequencerNote from "./SequencerNote";
 
-import InstrumentSampleSource from "./InstrumentSampleSource";
-import { ITEM_TYPES } from "../../constants";
-
-export default function SequencerDropZone() {
-  const [isDropped, setIsDropped] = useState(false);
-
-  const [{ isOver }, drop] = useDrop(() => ({
-    accept: ITEM_TYPES.INSTRUMENT_SAMPLE,
-    drop: (item, monitor) => {
-      setIsDropped(true);
-    },
-    collect: (monitor) => ({
-      isOver: !!monitor.isOver(),
-    }),
-  }));
-
-
+export default function SequencerDropZone({ isFirstDropZone }) {
   return (
-    <div
-      ref={drop}
-      style={{
-        width: 1000,
-        height: 70,
-        borderStyle: "solid",
-        backgroundColor: isOver ? "gray" : "white"
-      }}
-      onClick={test}
-    >
-      <div style={{ width: 90, height: 60 }}>
-        {isDropped && <InstrumentSampleSource handleShowSample={setIsDropped} />}
+    <div style={{ display: "flex" }}>
+      <div style={isFirstDropZone ? { position: "relative", width: 100, height: 70, borderStyle: "solid", top: 19 } : { width: 100, height: 70, borderStyle: "solid" }}>
+        <span>effect</span>
       </div>
+      {
+        Array.from(Array(8)).map((_, index) => (
+          <div>
+            {isFirstDropZone && <span>{index + 1}</span>}
+            <div style={{ display: "flex" }}>
+              <SequencerNote measure={index} quarter={1} />
+              <SequencerNote measure={index} quarter={2} />
+              <SequencerNote measure={index} quarter={3} />
+              <SequencerNote measure={index} quarter={4} />
+            </div>
+          </div>
+        ))
+      }
     </div>
   );
 }
