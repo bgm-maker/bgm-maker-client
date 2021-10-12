@@ -1,62 +1,52 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { BsPlayCircle, BsPauseCircle, BsRecordCircle } from "react-icons/bs";
 import * as Tone from "tone";
 
+import { selectSequencerSamples, initializeSequencerSamples } from "../../feature/sequencerSamplesSlice";
+import { INITIAL_BPM_VALUE } from "../../constants";
+
 export default function Player() {
-  const [curSynth, setCurSynth] = useState(null);
+  const [currentBpm, setCurrentBpm] = useState(INITIAL_BPM_VALUE);
+  const sequencerSamplesList = useSelector(selectSequencerSamples);
+  const dispatch = useDispatch();
 
-  function Instrument(synthType, synth) {
-    this.synthType = synthType;
-    this.synth = synth;
-    this.gain = new Tone.Gain();
-    this.gain.toDestination();
-    this.default = this.defaultSettings();
+  function handleOnPlay() {
+    dispatch(initializeSequencerSamples());
+
+    Tone.Transport.start();
+    Tone.start();
   }
 
-  Instrument.prototype.updateSynthType = function (synthType) {
-    if (this.synth) {
-      this.synth.disconnect(this.gain);
-      this.synth.dispose();
-    }
-    let settings = this.default[synthType];
-    this.synth = new Tone[synthType](settings || {});
-    this.synth.connect(this.gain);
-    this.synth.triggerAttackRelease("C4", "16n");
+  function handleOnStop() {
+    Tone.Transport.stop();
+
+    sequencerSamplesList.forEach((sample) => {
+      sample.stop();
+    });
   }
 
-  Instrument.prototype.defaultSettings = function () {
-    return {
-      Synth: {
-        oscillator: { type: "triangle" },
-        envelope: {
-          attack: 0.005,
-          decay: 0.1,
-          sustain: 0.3,
-          release: 1,
-        },
-      },
-    };
+  function handleChangeBpm(event) {
+    setCurrentBpm(event.target.value);
   }
-
-  function handleSynth(ev) {
-    setCurSynth(ev.target.value);
-  }
-
-  useEffect(() => {
-    if (!curSynth) return;
-
-    let inst = new Instrument();
-    inst.updateSynthType(curSynth);
-  }, [curSynth])
 
   return (
-    <>
-      <button>start</button>
-      <select name="synth" onChange={handleSynth}>
-        <option value="nothing">선택해주세요</option>
-        <option value="Synth">Synth</option>
-        <option value="AMSynth">AMSynth</option>
-        <option value="FMSynth">FMSynth</option>
-      </select>
-    </>
+    <div style={{ position: "relative", display: "flex", top: 25, left: 500 }}>
+      <div style={{ padding: 5 }}>
+        <span>BPM</span>
+        <input type="number" value={currentBpm} min="40" max="200" onChange={handleChangeBpm} style={{ width: 70, height: 20 }} />
+      </div>
+      <BsPlayCircle
+        style={{ width: 30, height: 30, padding: 5 }}
+        onClick={handleOnPlay}
+      />
+      <BsPauseCircle
+        style={{ width: 30, height: 30, padding: 5 }}
+        onClick={handleOnStop}
+      />
+      <BsRecordCircle
+        style={{ width: 30, height: 30, padding: 5 }}
+      />
+    </div>
   );;
 }
