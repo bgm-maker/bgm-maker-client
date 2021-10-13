@@ -1,19 +1,26 @@
 import * as Tone from "tone";
 
 import useDragSample from "../../customHooks/useDragSample";
+import useSingleAndDoubleClick from "../../customHooks/useSingleAndDoubleClick";
 
-export default function InstrumentSampleSource({ handleShowSample, sample }) {
+export default function InstrumentSampleSource({ handleShowSample, sample, history }) {
   const [isDragging, drag] = useDragSample(handleShowSample, sample);
+  const { handleSingleClick, handleDoubleClick } = useSingleAndDoubleClick(handlePlaySample, handleRouteSampleDetail);
 
   function handlePlaySample() {
     sample.start();
+  }
+
+  function handleRouteSampleDetail() {
+    history.push("/myPreset");
   }
 
   return (
     <div>
       <div
         ref={drag}
-        onClick={handlePlaySample}
+        onClick={handleSingleClick}
+        onDoubleClick={handleDoubleClick}
         style={{
           position: "relative",
           display: "flex",
