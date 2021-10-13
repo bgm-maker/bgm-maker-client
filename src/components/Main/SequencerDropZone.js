@@ -1,13 +1,13 @@
 import EffectZone from "./EffectZone";
 import SequencerNote from "./SequencerNote";
 
-export default function SequencerDropZone({ dropZoneRowNum, isFirstDropZone }) {
+export default function SequencerDropZone({ dropZoneRowNum, isFirstDropZone, dropZoneNoteCount }) {
 
   return (
     <div style={{ display: "flex" }}>
       <EffectZone dropZoneRowNum={dropZoneRowNum} isFirstDropZone={isFirstDropZone} />
       {
-        Array.from(Array(8)).map((_, index) => (
+        Array.from(Array(dropZoneNoteCount)).map((_, index) => (
           <div>
             {isFirstDropZone && <span>{index + 1}</span>}
             <div style={{ display: "flex" }}>

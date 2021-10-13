@@ -14,6 +14,14 @@ export const INITIAL_BPM_VALUE = 120;
 
 export const INSTRUMENTS_OPTION_COUNT = 5;
 
+export const INITIAL_DROP_ZONE_ROW_COUNT = 4;
+
+export const INITIAL_VOLUME = 1;
+
+export const INITIAL_REVERB = 0;
+
+export const INITIAL_DROP_ZONE_NOTE_COUNT = 8;
+
 export const INSTRUMENTS_QUANTITY = {
   COOL: {
     chord: 1,
