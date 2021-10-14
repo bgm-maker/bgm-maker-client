@@ -24,10 +24,11 @@ const instrumentsSlice = createSlice({
 
       Object.entries(selectedInstruments).forEach(([instrument, list]) => {
         list.forEach((number) => {
-          const sample = new Tone.Player(`${INSTRUMENT_URLS.BASE_URL}${instrument}_${selectedMood}_${number}.wav`);
+          const url = `${INSTRUMENT_URLS.BASE_URL}${instrument}_${selectedMood}_${number}.wav`;
+          const sample = new Tone.Player(url);
           sample.toDestination();
 
-          state.base[instrument].push(sample);
+          state.base[instrument].push([sample, url]);
         });
       });
     },
