@@ -1,117 +1,114 @@
 import { useState, useEffect, useRef } from "react";
-import WaveSurfer from "wavesurfer.js";
-import TimelinePlugin from "wavesurfer.js/dist/plugin/wavesurfer.timeline";
-import RegionsPlugin from "wavesurfer.js/dist/plugin/wavesurfer.regions";
-import * as Tone from "tone";
+import { useDispatch, useSelector } from "react-redux";
 
-import cutWave from "../../util/cutWave";
+import { saveEditedWaveSampled } from "../../feature/instrumentSlice";
 
-export default function SampleWaveForm({ sampleSourceUrl }) {
+export default function SampleWaveForm({ waveManager }) {
   const waveFormEl = useRef("waveSurfer");
-  const timeLineEl = useRef("timeLine");
-  const waveSurferInstance = useRef();
-  const [bufferList, setBufferList] = useState([]);
-  const [region, setRegion] = useState(null);
+  const timeLineEl = useRef("timeline");
+  const [waveHandler, setWaveHandler] = useState(null);
+  const [hasRegion, setHasRegion] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const waveSurfer = WaveSurfer.create({
+    const waveHandler = waveManager.create({
       container: waveFormEl.current,
-      backgroundColor: "gray",
-      progressColor: "pink",
-      waveColor: "skyblue",
-      cursorWidth: 2.5,
-      cursorColor: "green",
-      height: 350,
-      responsive: true,
-      barMinHeight: 0.3,
-      barWidth: 1.5,
-      barGap: null,
-      skipLength: 1,
-      plugins: [
-        TimelinePlugin.create({
-          container: timeLineEl.current,
-        }),
-        RegionsPlugin.create({})
-      ]
-    });
+    }, [{
+      type: "TimelinePlugin",
+      options: { container: timeLineEl.current },
+    }, {
+      type: "RegionsPlugin",
+      options: {},
+    }]);
 
-    waveSurfer.load(sampleSourceUrl);
-    waveSurfer.on("ready", () => {
-      const buffer = waveSurfer.backend.buffer;
-      setBufferList((prev) => [...prev, buffer]);
-    });
-
-    waveSurferInstance.current = waveSurfer;
+    setWaveHandler(waveHandler);
   }, []);
 
-  function handleCutSample() {
-    const { start, end } = region;
-    const { cutSelectionBuffer } = cutWave({ start, end }, waveSurferInstance.current);
-    waveSurferInstance.current.backend.buffer = cutSelectionBuffer;
-    waveSurferInstance.current.drawBuffer();
-    region.remove();
-    setBufferList((prev) => [...prev, cutSelectionBuffer]);
-    setRegion(null);
+  useEffect(() => {
+    if (!waveHandler) return;
+
+    waveHandler.load();
+  }, [waveHandler]);
+
+  function handleCutWave() {
+    const { start, end } = waveHandler.getRegion;
+    waveHandler.cutWave(start, end);
+
+    setHasRegion(false);
   }
 
-  function handleRewindSample() {
-    const nowBuffer = waveSurferInstance.current.backend.buffer;
-    const nowBufferIndex = bufferList.indexOf(nowBuffer);
-
-    if (nowBufferIndex === 0) return;
-
-    const prevBuffer = bufferList[nowBufferIndex - 1];
-    waveSurferInstance.current.backend.buffer = prevBuffer;
-    waveSurferInstance.current.drawBuffer();
+  function handleRewindWave() {
+    waveHandler.rewindWave();
   }
 
   function handleForwardSample() {
-    const nowBuffer = waveSurferInstance.current.backend.buffer;
-    const nowBufferIndex = bufferList.indexOf(nowBuffer);
-
-    if (nowBufferIndex === bufferList[bufferList.length - 1]) return;
-
-    const forwardBuffer = bufferList[nowBufferIndex + 1];
-    waveSurferInstance.current.backend.buffer = forwardBuffer;
-    waveSurferInstance.current.drawBuffer();
+    waveHandler.forwardWave();
   }
 
-  function handleAddRegion() {
-    if (region) {
-      region.remove();
-      setRegion(null);
+  function handleToggleRegion() {
+    if (hasRegion) {
+      waveHandler.removeRegion();
+      setHasRegion(false);
       return;
     }
 
-    const regionId = waveSurferInstance.current.addRegion({
-      start: 4,
-      end: 7,
-      color: "rgba(0,1,1,0.2)",
-    });
-
-    setRegion(regionId);
+    waveHandler.addSingleRegion();
+    setHasRegion(true);
   }
 
   function handleOnPlay() {
-    if (region) {
-      region.play();
-      return;
-    }
-
-    waveSurferInstance.current.playPause();
+    waveHandler.play();
   }
 
+  function handleOnPause() {
+    waveHandler.pause();
+  }
+
+  function handleOnStop() {
+    waveHandler.stop();
+  }
+
+  function handleFadeIn() {
+    waveHandler.toggleFadeIn();
+  }
+
+  function handleFadeOut() {
+    waveHandler.toggleFadeOut();
+  }
+
+  function handleSaveWave() {
+    const wave = waveHandler.getWave;
+    dispatch(saveEditedWaveSampled(wave));
+  }
 
   return (
     <div>
-      <button onClick={handleAddRegion}>{region ? "취소" : "선택하기"}</button>
-      <button onClick={handleCutSample}>자르기</button>
-      <button onClick={handleRewindSample}>되돌리기</button>
-      <button onClick={handleForwardSample}>되돌리기취소</button>
-      <span>여기는 이름 들어올곳</span>
-      <div ref={waveFormEl} style={{ width: 700 }}></div>
-      <div ref={timeLineEl} style={{ width: 700 }}></div>
-      <button onClick={handleOnPlay}>재생하기</button>
+      <div>
+        <button onClick={handleToggleRegion}>{hasRegion ? "취소" : "선택하기"}</button>
+        <button onClick={handleCutWave}>자르기</button>
+        <button onClick={handleRewindWave}>되돌리기</button>
+        <button onClick={handleForwardSample}>되돌리기취소</button>
+
+        <span>여기는 이름 들어올곳</span>
+        <div ref={waveFormEl} style={{ width: 700 }}></div>
+        <div ref={timeLineEl} style={{ width: 700 }}></div>
+
+        <button onClick={handleOnPlay}>재생하기</button>
+        <button onClick={handleOnPause}>일시정지</button>
+        <button onClick={handleOnStop}>멈춤</button>
+        <button onClick={handleSaveWave}>저장하기</button>
+      </div>
+
+      <div>
+        <button onClick={handleFadeIn}>fadeout</button>
+        <button onClick={handleFadeOut}>fadeIn</button>
+        <label>biquad</label>
+        <input type="range" />
+        <label>wet</label>
+        <input type="range" />
+        <label>compressor</label>
+        <input type="range" />
+      </div>
     </div>
   );
 }

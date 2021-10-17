@@ -1,6 +1,6 @@
-export default function cutWave(params, instance) {
-  const start = Math.floor(params.start);
-  const end = Math.floor(params.end);
+export default function cutWaveUtil(params, instance) {
+  const start = params.start;
+  const end = params.end;
 
   const originalAudioBuffer = instance.backend.buffer;
 

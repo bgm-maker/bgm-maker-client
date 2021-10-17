@@ -23,7 +23,7 @@ export default function SequencerNote({ measure, quarter, dropZoneRowNum }) {
         sampler,
         dropZoneRowNum,
       }));
-      sampler.start();
+      sampler[0].start();
     }, time)
 
     setSamplePart(part);

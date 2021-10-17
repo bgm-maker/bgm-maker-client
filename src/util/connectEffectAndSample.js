@@ -5,24 +5,26 @@ export default function connectEffectAndSample(dropZoneRowSamples, effectName, e
     case "reverb": {
       if (effectValue === 0) {
         dropZoneRowSamples?.forEach((sample) => {
-          sample.disconnect();
-          sample.toDestination();
+          sample[0].disconnect();
+          sample[0].toDestination();
         });
         break;
       }
+
       dropZoneRowSamples?.forEach((sample) => {
         const reverb = new Tone.Reverb(Number(effectValue)).toDestination();
-        sample.connect(reverb);
+        sample[0].connect(reverb);
       });
       break;
     }
     case "volume": {
       dropZoneRowSamples?.forEach((sample) => {
-        sample.volume.value = effectValue;
+        sample[0].volume.value = effectValue;
       });
       break;
     }
     default: {
+      //여기는 에러를 던져줘야지.
       break;
     }
   }

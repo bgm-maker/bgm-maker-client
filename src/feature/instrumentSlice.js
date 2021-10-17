@@ -10,8 +10,7 @@ const initialState = {
     drum: [],
     effect: [],
   },
-  extend: {
-  },
+  editedWaveSample: [],
 };
 
 const instrumentsSlice = createSlice({
@@ -32,11 +31,17 @@ const instrumentsSlice = createSlice({
         });
       });
     },
+    saveEditedWaveSampled: (state, action) => {
+      const waveSample = action.payload;
+      state.editedWaveSample.push(waveSample);
+    },
   },
 });
 
-export const { getInstruments } = instrumentsSlice.actions;
+export const { getInstruments, saveEditedWaveSampled } = instrumentsSlice.actions;
 
 export default instrumentsSlice.reducer;
 
 export const selectInstrument = (state) => state.instruments.base;
+
+export const selectEditedWaveSample = (state) => state.instruments.editedWaveSample;
