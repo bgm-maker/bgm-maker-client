@@ -1,31 +1,30 @@
 export const waveSurferDefaultOptions = {
   create: {
-    backgroundColor: "gray",
-    progressColor: "pink",
-    waveColor: "skyblue",
+    progressColor: "#DCEAEF",
+    waveColor: "#79A3B1",
     cursorWidth: 3,
-    cursorColor: "green",
+    cursorColor: "#2E6577",
     height: 350,
     responsive: true,
-    barMinHeight: 0.3,
-    barWidth: 1.5,
+    barMinHeight: 1,
+    barWidth: 2.5,
     barGap: null,
     skipLength: 1,
   },
   region: {
-    color: "rgba(225, 225, 225, 0.2)",
+    color: "rgba(225, 225, 225, 0.4)",
     minLength: 1,
   },
   fadeIn: {
     start: 1,
     maxLength: 1,
     resize: false,
-    color: "rgba(255, 255, 255, 0.7)"
+    color: "rgba(255, 176, 133, 0.7)"
   },
   fadeOut: {
     start: 1,
     maxLength: 1,
     resize: false,
-    color: "rgba(300, 100, 200, 0.7)"
+    color: "rgba(144, 170, 203, 0.7)"
   },
 };

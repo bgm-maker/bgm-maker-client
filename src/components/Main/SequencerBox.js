@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { ScrollMenu } from "react-horizontal-scrolling-menu";
+import styled from "styled-components";
 
 import SequencerDropZone from "./SequencerDropZone";
 import {
@@ -34,24 +35,38 @@ export default function SequencerBox({ setTest }) {
 
   return (
     <ScrollMenu>
-      <div>
+      <SequencerRowLine>
         {Array.from(Array(sequencerRowCount)).map((_, index) => {
           const props = {
             dropZoneRowNum: `dropZone${index}`,
             isFirstDropZone: index === 0,
             dropZoneNoteCount
           }
-          return (
-            <SequencerDropZone {...props} />
-          );
+
+          return (<SequencerDropZone {...props} />);
         })}
-      </div>
-      <button style={{ width: 30, height: 150, borderStyle: "solid" }} value="+" onClick={handleExtendDropZoneNote}>
-        +
-      </button>
-      <button style={{ width: 30, height: 150, borderStyle: "solid" }} value="-" onClick={handleExtendDropZoneNote}>
-        -
-      </button>
-    </ScrollMenu>
+      </SequencerRowLine>
+      <ModulateNoteButton>
+        {["+", "-"].map((value) =>
+          <Button value={value} onClick={handleExtendDropZoneNote}>{value}</Button>
+        )}
+      </ModulateNoteButton>
+    </ScrollMenu >
   );
 }
+
+const SequencerRowLine = styled.div`
+  margin: 3px;
+  margin-top: 12px;
+`;
+
+const ModulateNoteButton = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 31px;
+`;
+
+const Button = styled.button`
+  width: 24px;
+  height: 148px;
+`;

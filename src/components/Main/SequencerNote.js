@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as Tone from "tone";
+import styled, { css } from "styled-components";
 
 import InstrumentSampleSource from "./InstrumentSampleSource";
 import useDropSample from "../../customHooks/useDropSample";
@@ -11,7 +12,7 @@ export default function SequencerNote({ measure, quarter, dropZoneRowNum }) {
   const [isDropped, setIsDropped] = useState(false);
   const [samplePart, setSamplePart] = useState(null);
   const [isOver, drop, sampler] = useDropSample(setIsDropped);
-  const isCurrentNote = (useSelector(selectCurrentNote) === `${measure}:${quarter}`);
+  const isPlayingNote = (useSelector(selectCurrentNote) === `${measure}:${quarter}`);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -36,17 +37,25 @@ export default function SequencerNote({ measure, quarter, dropZoneRowNum }) {
   }, [isDropped]);
 
   return (
-    <div
-      ref={drop}
-      style={{
-        width: 25,
-        height: 70,
-        borderStyle: "solid",
-        backgroundColor: isOver ? "gray" : "white",
-        backgroundColor: isCurrentNote ? "pink" : "white",
-      }}
-    >
+    <SingleNote ref={drop} isOver={isOver} isPlayingNote={isPlayingNote}>
       {isDropped && <InstrumentSampleSource handleShowSample={setIsDropped} sample={sampler} />}
-    </div>
+    </SingleNote>
   );
 }
+
+const SingleNote = styled.div`
+  width: 27px;
+  height: 70px;
+  margin: 1px;
+  border-style: solid;
+  border-width: 0.1px;
+  ${(props) => {
+    if (props.isOver) {
+      return css`background-color: #DFF4F3`;
+    }
+
+    if (props.isPlayingNote) {
+      return css`background-color: #DFF4F3`;
+    }
+  }}
+`;
