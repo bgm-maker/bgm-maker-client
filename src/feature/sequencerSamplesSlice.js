@@ -15,8 +15,8 @@ const sequencerSamplesSlice = createSlice({
         state[dropZoneRowNum] = [];
       }
 
-      state[dropZoneRowNum].push(sampler);
-      state.allSamples.push(sampler);
+      state[dropZoneRowNum].push(sampler[0]);
+      state.allSamples.push(sampler[0]);
     },
     initializeSequencerSamples: (state, action) => {
       for (const key in state) {

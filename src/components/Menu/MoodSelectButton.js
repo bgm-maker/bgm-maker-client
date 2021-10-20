@@ -21,7 +21,7 @@ export default function MoodSelectButton({ mood }) {
         <SelectMoodButton
           value={moodValue}
           onClick={handleMakeSampler}
-        > {moodName}
+        >{moodName}
         </SelectMoodButton>
       </Link>
     </div>

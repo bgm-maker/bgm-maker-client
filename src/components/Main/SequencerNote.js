@@ -24,6 +24,7 @@ export default function SequencerNote({ measure, quarter, dropZoneRowNum }) {
         sampler,
         dropZoneRowNum,
       }));
+
       sampler[0].start();
     }, time)
 
@@ -38,7 +39,7 @@ export default function SequencerNote({ measure, quarter, dropZoneRowNum }) {
 
   return (
     <SingleNote ref={drop} isOver={isOver} isPlayingNote={isPlayingNote}>
-      {isDropped && <InstrumentSampleSource handleShowSample={setIsDropped} sample={sampler} />}
+      {isDropped && <InstrumentSampleSource isDropped handleShowSample={setIsDropped} sample={sampler} />}
     </SingleNote>
   );
 }

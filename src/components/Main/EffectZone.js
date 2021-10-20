@@ -22,9 +22,9 @@ export default function EffectZone({ isFirstDropZone, dropZoneRowNum }) {
 
   return (
     <EffectWrapper isFirstDropZone={isFirstDropZone}>
-      <Label htmlFor="Volume">Volume</Label>
+      <Text>Volume</Text>
       <Range type="range" min="-10" max="10" value={effect.volume} name="volume" onChange={handleChangeEffectValue} />
-      <Label htmlFor="Reverb">Reverb</Label>
+      <Text>Reverb</Text>
       <Range type="range" min="0" max="10" value={effect.reverb} name="reverb" onChange={handleChangeEffectValue} />
     </EffectWrapper>
   );
@@ -53,7 +53,7 @@ const Range = styled.input`
   -webkit-appearance: none;
 `;
 
-const Label = styled.label`
+const Text = styled.p`
   margin-top: 5px;
   font-size: 13px;
 `;

@@ -3,17 +3,17 @@ import styled from "styled-components";
 import useDragSample from "../../customHooks/useDragSample";
 import useSingleAndDoubleClick from "../../customHooks/useSingleAndDoubleClick";
 
-export default function InstrumentSampleSource({ handleShowSample, sample, history }) {
+export default function InstrumentSampleSource({ isDropped, handleShowSample, sample, instType, history, order }) {
   const [isDragging, drag] = useDragSample(handleShowSample, sample);
   const { handleSingleClick, handleDoubleClick } = useSingleAndDoubleClick(handlePlaySample, handleRouteSampleDetail);
-  const [inst, SampleList] = sample;
 
   function handlePlaySample() {
     sample[0].start();
   }
 
   function handleRouteSampleDetail() {
-    history.push("/editSample", sample[1][0][1]);
+    const sampleUrl = sample[1];
+    history.push("/editSample", sampleUrl);
   }
 
   return (
@@ -22,10 +22,12 @@ export default function InstrumentSampleSource({ handleShowSample, sample, histo
       onClick={handleSingleClick}
       onDoubleClick={handleDoubleClick}
       isDragging={isDragging}
-      inst={inst}
+      isDropped
+      sample
+      instType={instType}
     >
       <Contents>
-        <Text size="20px">2</Text>
+        <Text size="20px">{order}</Text>
         <Text>click & Drag</Text>
       </Contents>
     </SampleSource>
@@ -35,16 +37,16 @@ export default function InstrumentSampleSource({ handleShowSample, sample, histo
 const SampleSource = styled.div`
   display: flex;
   flex-direction: column;
-  width: 120px;
+  width: 140px;
   height: 40px;
   border-style: solid;
   border-width: 0.1px;
   border-color: #E6E6E6;
   background-color: ${(props) => {
-    switch (props.inst) {
+    switch (props.instType) {
       case "chord": return "#e0d2c4"
       case "bass": return "#d1afab"
-      case "drum": return "#977673;"
+      case "rhythm": return "#977673;"
       case "effect": return "#654e46"
       default: return "#93B5C6"
     }
