@@ -49,7 +49,8 @@ export default function InstrumentSampleBox({ history, nowPlayingSample, setNowP
                 history={history}
                 order={1}
                 nowPlayingSample={nowPlayingSample}
-                setNowPlayingSample={setNowPlayingSample} />
+                setNowPlayingSample={setNowPlayingSample}
+              />
               <Refresh
                 onClick={() => { handleRefresh({ instType, samples, currentSample: samples[0] }) }}>
                 <FcRefresh />

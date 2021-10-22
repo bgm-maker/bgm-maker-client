@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import styled from "styled-components";
 
 import useDragSample from "../../customHooks/useDragSample";
@@ -9,6 +10,12 @@ export default function InstrumentSampleSource({ isDropped, handleShowSample, du
 
   function handlePlaySample() {
     if (isDropped) return;
+
+    if (nowPlayingSample[1] === sample[1]) {
+      nowPlayingSample[0].stop();
+      setNowPlayingSample([]);
+      return;
+    }
 
     try {
       nowPlayingSample[0]?.stop();
@@ -26,6 +33,14 @@ export default function InstrumentSampleSource({ isDropped, handleShowSample, du
     nowPlayingSample[0]?.stop();
     history.push("/editSample", sampleUrl);
   }
+
+  useEffect(() => {
+    return () => {
+      if (nowPlayingSample) {
+        nowPlayingSample[0].stop();
+      }
+    }
+  }, []);
 
   return (
     <SampleSource
