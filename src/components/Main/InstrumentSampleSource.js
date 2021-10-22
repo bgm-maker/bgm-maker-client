@@ -56,7 +56,7 @@ const SampleSource = styled.div`
     }
     const length = props.duration || Math.floor(props.sample[0].buffer._buffer.duration);
 
-    return `${32.7 * 2 * length}px`;
+    return `${31 * 2 * length}px`;
   }};
   height: 40px;
   border-style: solid;
