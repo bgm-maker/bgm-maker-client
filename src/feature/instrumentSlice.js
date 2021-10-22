@@ -1,16 +1,24 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 import * as Tone from "tone";
 
-import { INSTRUMENT_URLS } from "../constants/s3Config";
+import { SAMPLE_URLS } from "../constants/s3Config";
 
 const initialState = {
   base: {
     chord: [],
     bass: [],
-    drum: [],
+    rhythm: [],
+    effect: [],
+  },
+  selectedRandomNum: {
+    mood: "",
+    chord: [],
+    bass: [],
+    rhythm: [],
     effect: [],
   },
   editedWaveSample: [],
+  recorder: null,
 };
 
 const instrumentsSlice = createSlice({
@@ -20,28 +28,55 @@ const instrumentsSlice = createSlice({
     getInstruments: (state, action) => {
       const selectedInstruments = action.payload.selectedInstruments;
       const selectedMood = action.payload.selectedMood.toLowerCase();
+      state.selectedRandomNum.mood = selectedMood;
+
+      const recorder = new Tone.Recorder();
+      state.recorder = recorder;
 
       Object.entries(selectedInstruments).forEach(([instrument, list]) => {
-        list.forEach((number) => {
-          const url = `${INSTRUMENT_URLS.BASE_URL}${instrument}_${selectedMood}_${number}.wav`;
-          const sample = new Tone.Player(url);
-          sample.toDestination();
+        state.selectedRandomNum[instrument].push(...list);
 
+        list.forEach((number) => {
+          const url = `${SAMPLE_URLS.BASE_URL}${instrument}_${selectedMood}_${number}.wav`;
+          const sample = new Tone.Player(url);
+          sample.connect(recorder);
+          sample.toDestination();
           state.base[instrument].push([sample, url]);
         });
       });
+
     },
     saveEditedWaveSampled: (state, action) => {
-      const waveSample = action.payload;
-      state.editedWaveSample.push(waveSample);
+      const { wave, url } = action.payload;
+      state.editedWaveSample.push([wave, url]);
+    },
+    refreshInstrument: (state, action) => {
+      const { reselectedNums, instType } = action.payload;
+      const { index, currentRandomNums } = reselectedNums;
+
+      const mood = current(state).selectedRandomNum.mood;
+      const number = currentRandomNums.pop();
+      const url = `${SAMPLE_URLS.BASE_URL}${instType}_${mood}_${number}.wav`;
+      const player = new Tone.Player(url).toDestination();
+
+      state.base[instType].splice(index, 1, [player, url]);
+      state.selectedRandomNum[instType].push(number);
     },
   },
 });
 
-export const { getInstruments, saveEditedWaveSampled } = instrumentsSlice.actions;
+export const {
+  getInstruments,
+  saveEditedWaveSampled,
+  refreshInstrument,
+} = instrumentsSlice.actions;
 
 export default instrumentsSlice.reducer;
 
 export const selectInstrument = (state) => state.instruments.base;
 
 export const selectEditedWaveSample = (state) => state.instruments.editedWaveSample;
+
+export const selectedRandomNum = (state) => state.instruments.selectedRandomNum;
+
+export const selectedRecorder = (state) => state.instruments.recorder;

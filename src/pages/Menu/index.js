@@ -1,22 +1,23 @@
 import styled from "styled-components";
 
 import MoodSelectButton from "../../components/Menu/MoodSelectButton";
-import { MOOD_TYPES } from "../../constants/index";
+import { MOOD_TYPES } from "../../constants";
 
 export default function MenuPage() {
   const moodList = Object.values(MOOD_TYPES);
+  sessionStorage.clear();
 
   return (
-    <StyledMenu>
+    <StyledMenuPage>
       <Text>Make your own bgm</Text>
-      <Border>
-        {moodList.map((mood) => <MoodSelectButton mood={mood} />)}
-      </Border>
-    </StyledMenu>
+      <MenuPageBorder>
+        {moodList.map((mood, index) => <MoodSelectButton key={index} mood={mood} />)}
+      </MenuPageBorder>
+    </StyledMenuPage>
   );
 }
 
-const StyledMenu = styled.div`
+const StyledMenuPage = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,7 +26,7 @@ const StyledMenu = styled.div`
   background-image: url("https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F9906583E5A3CB05E39");
 `;
 
-const Border = styled.div`
+const MenuPageBorder = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;

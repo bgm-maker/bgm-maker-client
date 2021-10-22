@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { MdTabUnselected } from "react-icons/md"
@@ -9,12 +10,13 @@ import { IoPlay, IoPause, IoStop, IoSaveOutline } from "react-icons/io5";
 
 import { saveEditedWaveSampled } from "../../feature/instrumentSlice";
 
-export default function SampleWaveForm({ waveManager }) {
+export default function SampleWaveForm({ waveManager, sampleUrl }) {
   const waveFormEl = useRef("waveSurfer");
   const timeLineEl = useRef("timeline");
   const [waveHandler, setWaveHandler] = useState(null);
   const [hasRegion, setHasRegion] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [effectsValue, setEffectsValue] = useState({});
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -34,7 +36,7 @@ export default function SampleWaveForm({ waveManager }) {
   useEffect(() => {
     if (!waveHandler) return;
 
-    waveHandler.load();
+    waveHandler.load(sampleUrl);
   }, [waveHandler]);
 
   function handleCutWave() {
@@ -88,13 +90,21 @@ export default function SampleWaveForm({ waveManager }) {
 
   function handleSaveWave() {
     const wave = waveHandler.getWave;
-    dispatch(saveEditedWaveSampled(wave));
+    const url = waveHandler.getUrl;
+
+    dispatch(saveEditedWaveSampled({ wave, url }));
+  }
+
+  function handleEffects(event) {
+    const { name, value } = event.target;
+
+    waveHandler.setEffects({ [name]: value });
+    setEffectsValue((prev) => ({ ...prev, [name]: value }));
   }
 
   return (
     <PageWrapper>
       <WaveFormWrapper>
-        {/* <span>여기는 이름 들어올곳</span> */}
         <WaveForm ref={waveFormEl}></WaveForm>
         <TimeLine ref={timeLineEl}></TimeLine>
       </WaveFormWrapper>
@@ -129,9 +139,11 @@ export default function SampleWaveForm({ waveManager }) {
             <EditButton onClick={handleOnStop}>
               <IoStop />
             </EditButton>
-            <EditButton onClick={handleSaveWave}>
-              <IoSaveOutline />
-            </EditButton>
+            <Link to="/main">
+              <EditButton onClick={handleSaveWave}>
+                <IoSaveOutline />
+              </EditButton>
+            </Link>
           </EditButtonWrapper>
         </div>
         <div>
@@ -152,12 +164,12 @@ export default function SampleWaveForm({ waveManager }) {
             </div>
           </FadeInOutToggleWrapper>
           <EffectWrapper>
-            <p>Biquiad</p>
-            <Range type="range" />
-            <p>Wet</p>
-            <Range type="range" />
-            <p>compressor</p>
-            <Range type="range" />
+            <p>Biquad</p>
+            <Range type="range" name="biquad" min={0} max={10} value={effectsValue.biquad || 0} onChange={handleEffects} />
+            <p>Compressor</p>
+            <Range type="range" name="compressor" min={-30} max={0} value={effectsValue.compressor || -30} onChange={handleEffects} />
+            <p>Volume</p>
+            <Range type="range" name="volume" min={-5} max={7} value={effectsValue.volume || 0} onChange={handleEffects} />
           </EffectWrapper>
         </div>
       </EditAndPlayerWrapper>
@@ -216,6 +228,7 @@ const EditButton = styled.div`
   border-color: #E6E6E6;
   border-radius: 4px;
   background-color: #e0d2c4;
+  color: black;
   font-size: 23px;
   box-shadow: 1.5px 1.5px 4px 1px #9E846B;
 `;

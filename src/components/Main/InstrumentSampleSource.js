@@ -3,16 +3,27 @@ import styled from "styled-components";
 import useDragSample from "../../customHooks/useDragSample";
 import useSingleAndDoubleClick from "../../customHooks/useSingleAndDoubleClick";
 
-export default function InstrumentSampleSource({ isDropped, handleShowSample, sample, instType, history, order }) {
-  const [isDragging, drag] = useDragSample(handleShowSample, sample);
+export default function InstrumentSampleSource({ isDropped, handleShowSample, duration, sample, instType, history, order, nowPlayingSample, setNowPlayingSample }) {
+  const [isDragging, drag] = useDragSample(handleShowSample, sample, instType, order);
   const { handleSingleClick, handleDoubleClick } = useSingleAndDoubleClick(handlePlaySample, handleRouteSampleDetail);
 
   function handlePlaySample() {
-    sample[0].start();
+    if (isDropped) return;
+
+    try {
+      nowPlayingSample[0]?.stop();
+      sample[0].start();
+      setNowPlayingSample(sample);
+    } catch (err) {
+      alert("아직 샘플이 준비 되지 않았습니다 :(");
+    }
   }
 
   function handleRouteSampleDetail() {
+    if (isDropped) return;
+
     const sampleUrl = sample[1];
+    nowPlayingSample[0]?.stop();
     history.push("/editSample", sampleUrl);
   }
 
@@ -22,9 +33,10 @@ export default function InstrumentSampleSource({ isDropped, handleShowSample, sa
       onClick={handleSingleClick}
       onDoubleClick={handleDoubleClick}
       isDragging={isDragging}
-      isDropped
-      sample
+      isDropped={isDropped}
       instType={instType}
+      sample={sample}
+      duration={duration}
     >
       <Contents>
         <Text size="20px">{order}</Text>
@@ -37,7 +49,15 @@ export default function InstrumentSampleSource({ isDropped, handleShowSample, sa
 const SampleSource = styled.div`
   display: flex;
   flex-direction: column;
-  width: 140px;
+  position: relative;
+  width: ${(props) => {
+    if (!props.isDropped) {
+      return "140px";
+    }
+    const length = props.duration || Math.floor(props.sample[0].buffer._buffer.duration);
+
+    return `${32.7 * 2 * length}px`;
+  }};
   height: 40px;
   border-style: solid;
   border-width: 0.1px;

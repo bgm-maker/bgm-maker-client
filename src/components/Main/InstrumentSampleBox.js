@@ -1,53 +1,107 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { FcRefresh } from "react-icons/fc";
 import styled from "styled-components";
 
 import InstrumentSampleSource from "./InstrumentSampleSource";
-import { selectInstrument, selectEditedWaveSample } from "../../feature/instrumentSlice";
+import reselectRandomInstrument from "../../util/reselectRandomInstrument";
+import {
+  selectInstrument,
+  selectEditedWaveSample,
+  selectedRandomNum,
+  refreshInstrument
+} from "../../feature/instrumentSlice";
 
-export default function InstrumentSampleBox({ history }) {
+export default function InstrumentSampleBox({ history, nowPlayingSample, setNowPlayingSample }) {
   const instrument = useSelector(selectInstrument);
   const editedSamples = useSelector(selectEditedWaveSample);
+  const selectedRandomNums = useSelector(selectedRandomNum);
   const [myPresetList, setMyPresetList] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setMyPresetList(editedSamples);
   }, []);
 
+  function handleRefresh(param) {
+    const { instType } = param;
+
+    try {
+      const reselectedNums = reselectRandomInstrument(param, selectedRandomNums);
+      dispatch(refreshInstrument({ reselectedNums, instType }));
+    } catch (error) {
+      alert(error);
+    }
+  }
+
   return (
     <div>
       {Object.entries(instrument).map((inst, index) => {
+        const [instType, samples] = inst;
+
         return (
           <SampleWrapper key={index}>
             <SampleType>{inst[0]}</SampleType>
             <Sample>
-              <InstrumentSampleSource sample={inst} history={history} />
-              <Refresh>
+              <InstrumentSampleSource
+                sample={samples[0]}
+                instType={instType}
+                history={history}
+                order={1}
+                nowPlayingSample={nowPlayingSample}
+                setNowPlayingSample={setNowPlayingSample} />
+              <Refresh
+                onClick={() => { handleRefresh({ instType, samples, currentSample: samples[0] }) }}>
                 <FcRefresh />
               </Refresh>
             </Sample>
             <Sample>
-              <InstrumentSampleSource sample={inst} history={history} />
-              <Refresh>
+              <InstrumentSampleSource
+                sample={samples[1]}
+                instType={instType}
+                history={history}
+                order={2}
+                nowPlayingSample={nowPlayingSample}
+                setNowPlayingSample={setNowPlayingSample} />
+              <Refresh
+                onClick={() => { handleRefresh({ instType, samples, currentSample: samples[1] }) }}>
                 <FcRefresh />
               </Refresh>
             </Sample>
             <Sample>
-              <InstrumentSampleSource sample={inst} history={history} />
-              <Refresh>
+              <InstrumentSampleSource
+                sample={samples[2]}
+                instType={instType}
+                history={history}
+                order={3}
+                nowPlayingSample={nowPlayingSample}
+                setNowPlayingSample={setNowPlayingSample} />
+              <Refresh
+                onClick={() => { handleRefresh({ instType, samples, currentSample: samples[2] }) }}>
                 <FcRefresh />
               </Refresh>
             </Sample>
             <Sample>
-              <InstrumentSampleSource sample={inst} history={history} />
-              <Refresh>
+              <InstrumentSampleSource
+                sample={samples[3]}
+                instType={instType}
+                history={history}
+                order={4}
+                nowPlayingSample={nowPlayingSample}
+                setNowPlayingSample={setNowPlayingSample} />
+              <Refresh
+                onClick={() => { handleRefresh({ instType, samples, currentSample: samples[3] }) }}>
                 <FcRefresh />
               </Refresh>
             </Sample>
             <Sample>
-              <InstrumentSampleSource sample={inst} history={history} />
-              <Refresh>
+              <InstrumentSampleSource
+                sample={samples[4]}
+                instType={instType}
+                history={history} order={5}
+                nowPlayingSample={nowPlayingSample}
+                setNowPlayingSample={setNowPlayingSample} />
+              <Refresh onClick={() => { handleRefresh({ instType, samples, currentSample: samples[4] }) }}>
                 <FcRefresh />
               </Refresh>
             </Sample>
@@ -59,7 +113,11 @@ export default function InstrumentSampleBox({ history }) {
         <SampleType>Edited Sample</SampleType>
         {myPresetList.map((sample) =>
           <Sample>
-            <InstrumentSampleSource sample={sample} history={history} />
+            <InstrumentSampleSource
+              sample={sample}
+              history={history}
+              nowPlayingSample={nowPlayingSample}
+              setNowPlayingSample={setNowPlayingSample} />
           </Sample>
         )}
       </EditedSampleWrapper>

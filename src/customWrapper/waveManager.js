@@ -1,8 +1,9 @@
-export default function CreateWaveManager(waveSurfer, waveSurferPlugins, toneJs, url, defaultOptions, utils) {
+export default function CreateWaveManager(waveSurfer, waveSurferPlugins, toneJs, defaultOptions, utils) {
   const { TimelinePlugin, RegionsPlugin } = waveSurferPlugins;
   const { cutWaveUtil } = utils;
   const waveSurferSampleList = [];
   const toneJsSampleList = [];
+  let sampleUrl = "";
   let currentStopTime = 0;
   let waveSurferSample = {};
   let toneJsSample = {};
@@ -10,34 +11,56 @@ export default function CreateWaveManager(waveSurfer, waveSurferPlugins, toneJs,
   let region = {};
   let fadeIn = {};
   let fadeOut = {};
+  let effects = {};
+
+  function defaultEventSet() {
+    waveSurferSample.on("ready", () => {
+      currentBuffer = waveSurferSample.backend.buffer;
+      waveSurferSampleList.push(currentBuffer);
+    });
+
+    waveSurferSample.on("region-update-end", (region) => {
+      if (fadeIn.id === region.id) {
+        toneJsSample.fadeIn = region.start;
+        return;
+      }
+
+      if (fadeOut.id === region.id) {
+        toneJsSample.fadeOut = region.start;
+        return;
+      }
+    });
+  }
+
+  function connectEffects() {
+    if (Object.keys(effects).length === 0) {
+      toneJsSample.toDestination();
+      return;
+    }
+
+    const effectList = Object.values(effects);
+    toneJsSample.fan(...effectList);
+  }
+
+  function disconnectEffects() {
+    if (Object.keys(effects).length === 0) {
+      toneJsSample.toDestination();
+      return;
+    }
+
+    for (const type in effects) {
+      toneJsSample.disconnect(effects[type]);
+    }
+  }
 
   const waveHandler = {
-    defaultEventSet() {
-      waveSurferSample.on("ready", () => {
-        currentBuffer = waveSurferSample.backend.buffer;
-        waveSurferSampleList.push(currentBuffer);
-      });
-
-      waveSurferSample.on("region-update-end", (region) => {
-        if (fadeIn.id === region.id) {
-          toneJsSample.fadeIn = region.start;
-          return;
-        }
-
-        if (fadeOut.id === region.id) {
-          toneJsSample.fadeOut = region.start;
-          return;
-        }
-      });
-    },
-    load() {
-      this.defaultEventSet();
+    load(url) {
+      defaultEventSet();
 
       waveSurferSample.load(url);
       toneJsSample = new toneJs.Player(url).toDestination();
       toneJsSampleList.push(toneJsSample);
-
-      return currentBuffer;
+      sampleUrl = url;
     },
     addSingleRegion(options = defaultOptions.region) {
       if (Object.keys(region).length !== 0) return;
@@ -55,20 +78,27 @@ export default function CreateWaveManager(waveSurfer, waveSurferPlugins, toneJs,
     cutWave(start, end) {
       if (!start && !end) return;
 
-      const { cutSelectionBuffer } = cutWaveUtil({ start, end }, waveSurferSample);
-      toneJsSample = new toneJs.Player(cutSelectionBuffer).toDestination();
-      toneJsSampleList.push(toneJsSample);
-      waveSurferSampleList.push(cutSelectionBuffer);
-      waveSurferSample.backend.buffer = cutSelectionBuffer;
-      currentBuffer = cutSelectionBuffer;
-      waveSurferSample.drawBuffer();
-
       if (region) {
         region.remove();
-        region = undefined;
+        region = {};
       }
 
-      return cutSelectionBuffer;
+      try {
+        const { cutSelectionBuffer } = cutWaveUtil({ start, end }, waveSurferSample);
+        toneJsSample = new toneJs.Player(cutSelectionBuffer).toDestination();
+        toneJsSampleList.push(toneJsSample);
+        waveSurferSampleList.push(cutSelectionBuffer);
+        waveSurferSample.backend.buffer = cutSelectionBuffer;
+        currentBuffer = cutSelectionBuffer;
+        waveSurferSample.drawBuffer();
+
+        connectEffects();
+
+        return cutSelectionBuffer;
+      } catch (err) {
+        alert("영역을 다시 선택해주세요");
+        this.removeRegion();
+      }
     },
     rewindWave() {
       const currentBufferIndex = waveSurferSampleList.indexOf(currentBuffer);
@@ -81,6 +111,8 @@ export default function CreateWaveManager(waveSurfer, waveSurferPlugins, toneJs,
       waveSurferSample.backend.buffer = prevBuffer;
       toneJsSample = prevToneJsSample;
       waveSurferSample.drawBuffer();
+
+      connectEffects();
     },
     forwardWave() {
       const currentBufferIndex = waveSurferSampleList.indexOf(currentBuffer);
@@ -93,6 +125,8 @@ export default function CreateWaveManager(waveSurfer, waveSurferPlugins, toneJs,
       waveSurferSample.backend.buffer = forwardBuffer;
       toneJsSample = forwardToneJsSample;
       waveSurferSample.drawBuffer();
+
+      connectEffects();
     },
     play() {
       const currentCursorTime = waveSurferSample.getCurrentTime();
@@ -138,11 +172,55 @@ export default function CreateWaveManager(waveSurfer, waveSurferPlugins, toneJs,
         fadeOut = {};
       }
     },
+    setEffects(params) {
+      for (const type in params) {
+        let value = Number(params[type]);
+
+        if (type === "volume") {
+          toneJsSample.volume.value = value;
+        }
+
+        if (type === "biquad") {
+          if (value === 0) {
+            disconnectEffects(type);
+            delete effects[type];
+            connectEffects();
+            return;
+          }
+
+          const frequency = 350 - value * 10;
+          const biquadFilter = new toneJs.BiquadFilter().toDestination();
+          biquadFilter.set({ Q: value, frequency, type: "lowpass" });
+          disconnectEffects();
+          effects[type] = biquadFilter;
+          connectEffects();
+        }
+
+        if (type === "compressor") {
+          value = (value - value) - (value + 30)
+
+          if (value === 0) {
+            disconnectEffects(type);
+            delete effects[type];
+            connectEffects();
+            return;
+          }
+
+          const compressor = new toneJs.Compressor(value, 3).toDestination();
+          disconnectEffects();
+          effects[type] = compressor;
+          connectEffects();
+        }
+      }
+    },
     get getWave() {
       return toneJsSample;
     },
     get getRegion() {
       return region;
+    },
+    get getUrl() {
+      return sampleUrl;
     }
   };
 

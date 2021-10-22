@@ -1,11 +1,19 @@
-import styled from "styled-components";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 export default function Header({ children }) {
+  const dispatch = useDispatch();
+
+  function handleInitializeState() {
+    if (children !== "/") return;
+
+    dispatch({ type: "initializeState" });
+  }
 
   return (
     <Link to={children}>
-      <PageMoveButton>GO BACK</PageMoveButton>
+      <PageMoveButton onClick={handleInitializeState}>GO BACK</PageMoveButton>
     </Link>
   );
 }

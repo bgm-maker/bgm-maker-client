@@ -11,14 +11,14 @@ import SampleWaveForm from "../../components/EditSample/SampleWaveForm";
 import Header from "../../components/common/Header";
 
 export default function EditSample({ history }) {
-  const sampleSourceUrl = history.location.state;
+  const sampleUrl = history.location.state;
   const waveManager =
-    CreateWaveManager(WaveSurfer, { TimelinePlugin, RegionsPlugin }, Tone, sampleSourceUrl, waveSurferDefaultOptions, { cutWaveUtil });
+    CreateWaveManager(WaveSurfer, { TimelinePlugin, RegionsPlugin }, Tone, waveSurferDefaultOptions, { cutWaveUtil });
 
   return (
     <StyledEditSamplePage>
       <Header>/main</Header>
-      <SampleWaveForm waveManager={waveManager} />
+      <SampleWaveForm waveManager={waveManager} sampleUrl={sampleUrl} />
     </StyledEditSamplePage>
   );
 }

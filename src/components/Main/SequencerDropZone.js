@@ -10,7 +10,7 @@ export default function SequencerDropZone({ dropZoneRowNum, isFirstDropZone, dro
       <EffectZone dropZoneRowNum={dropZoneRowNum} isFirstDropZone={isFirstDropZone} />
       {
         Array.from(Array(dropZoneNoteCount)).map((_, index) => (
-          <div>
+          <div key={index}>
             {isFirstDropZone && <MeasureCount>{index + 1}</MeasureCount>}
             <Measure>
               <SequencerNote measure={index} quarter={1} dropZoneRowNum={dropZoneRowNum} />

@@ -7,16 +7,25 @@ import Player from "../../components/Main/Player";
 import Header from "../../components/common/Header";
 
 export default function MainPage({ history }) {
-  const [test, setTest] = useState();
+  const [time, setTime] = useState();
+  const [nowPlayingSample, setNowPlayingSample] = useState([]);
 
   return (
     <StyledMainPage>
       <Header>/</Header>
       <Border>
-        <InstrumentSampleBox history={history} />
-        <br />
-        <SequencerBox setTest={setTest} />
-        <Player test={test} />
+        <InstrumentSampleBox
+          history={history}
+          nowPlayingSample={nowPlayingSample}
+          setNowPlayingSample={setNowPlayingSample}
+        />
+        <SequencerBox
+          setTime={setTime}
+        />
+        <Player
+          time={time}
+          nowPlayingSample={nowPlayingSample}
+        />
       </Border>
     </StyledMainPage>
   );
