@@ -3,8 +3,8 @@ import { useDrag } from "react-dnd";
 
 import { ITEM_TYPES } from "../constants";
 
-export default function useDragSample(handleShowSample, sample) {
-  const sampler = useRef(sample);
+export default function useDragSample(handleShowSample, sample, instType, order) {
+  const sampler = useRef({ sample, instType, order });
 
   const [{ isDragging }, drag] = useDrag(() => ({
     type: ITEM_TYPES.INSTRUMENT_SAMPLE,

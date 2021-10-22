@@ -10,6 +10,7 @@ export default function connectEffectAndSample(dropZoneRowSamples, effectName, e
         });
         break;
       }
+
       dropZoneRowSamples?.forEach((sample) => {
         const reverb = new Tone.Reverb(Number(effectValue)).toDestination();
         sample.connect(reverb);
@@ -23,7 +24,7 @@ export default function connectEffectAndSample(dropZoneRowSamples, effectName, e
       break;
     }
     default: {
-      break;
+      throw new Error("failed to control the effect");
     }
   }
 }
