@@ -24,10 +24,10 @@ export default function Player({ time, nowPlayingSample }) {
     Tone.Transport.start();
     Tone.start();
 
-    const bpm = Tone.Transport.toSeconds("4n");
+    Tone.Transport.bpm.value = 110;
     const intervalId = setInterval(() => {
       dispatch(updateCurrentNote());
-    }, 5);
+    }, 540);
 
     interval.current = intervalId;
   }
