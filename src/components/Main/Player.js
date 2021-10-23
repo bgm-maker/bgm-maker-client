@@ -9,7 +9,7 @@ import { selectSequencerSamples, initializeSequencerSamples } from "../../featur
 import { selectedRecorder } from "../../feature/instrumentSlice";
 import { updateCurrentNote, initCurrentNote, selectCurrentNote } from "../../feature/showCurrentNoteSlice";
 
-export default function Player({ time, nowPlayingSample }) {
+export default function Player({ time, nowPlayingSample, setNowPlayingSample }) {
   const { allSamples } = useSelector(selectSequencerSamples);
   const currentNote = useSelector(selectCurrentNote);
   const recorder = useSelector(selectedRecorder);
@@ -21,6 +21,7 @@ export default function Player({ time, nowPlayingSample }) {
     dispatch(initializeSequencerSamples());
 
     nowPlayingSample[0]?.stop();
+    setNowPlayingSample([]);
     Tone.Transport.start();
     Tone.start();
 
@@ -34,12 +35,12 @@ export default function Player({ time, nowPlayingSample }) {
 
   function handleOnStop() {
     Tone.Transport.stop();
+    clearInterval(interval.current);
 
     allSamples.forEach((sample) => {
       sample.stop();
     });
 
-    clearInterval(interval.current);
     dispatch(initCurrentNote());
   }
 
@@ -64,10 +65,10 @@ export default function Player({ time, nowPlayingSample }) {
 
   useEffect(() => {
     const currentTime = `${time}:4`
+
     if (currentTime === currentNote) {
       handleOnStop();
     }
-
   }, [currentNote]);
 
   return (

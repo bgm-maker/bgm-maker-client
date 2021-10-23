@@ -25,6 +25,7 @@ export default function MainPage({ history }) {
         <Player
           time={time}
           nowPlayingSample={nowPlayingSample}
+          setNowPlayingSample={setNowPlayingSample}
         />
       </Border>
     </StyledMainPage>

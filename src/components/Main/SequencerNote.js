@@ -43,7 +43,7 @@ export default function SequencerNote({ measure, quarter, dropZoneRowNum }) {
       sampleInfo,
       sampler[0].buffer._buffer.duration
     ]);
-    console.log(sessionItem);
+
     sessionStorage.setItem(`${dropZoneRowNum}/${measure}/${quarter}`, sessionItem);
   }, [isDropped]);
 
