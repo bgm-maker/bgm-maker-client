@@ -18,7 +18,9 @@ export default function InstrumentSampleSource({ isDropped, handleShowSample, du
     }
 
     try {
-      nowPlayingSample[0]?.stop();
+      if (nowPlayingSample.length === 2) {
+        nowPlayingSample[0]?.stop();
+      }
       sample[0].start();
       setNowPlayingSample(sample);
     } catch (err) {
