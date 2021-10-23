@@ -36,8 +36,8 @@ export default function InstrumentSampleSource({ isDropped, handleShowSample, du
 
   useEffect(() => {
     return () => {
-      if (nowPlayingSample) {
-        nowPlayingSample[0].stop();
+      if (nowPlayingSample?.length === 2) {
+        nowPlayingSample[0]?.stop();
       }
     }
   }, []);
