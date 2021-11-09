@@ -1,70 +1,142 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# 🎶  BGM-Maker
+![Generic Badge](https://img.shields.io/badge/react-%5E17.0.2-blue)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/09569717-2d9e-4e03-adf2-a287c2385ae3/deploy-status)](https://app.netlify.com/sites/elegant-borg-e48650/deploys)
 
-## Available Scripts
+커스텀 BGM을 만들 수 있는 웹 애플리케이션 입니다.
 
-In the project directory, you can run:
+React 프레임워크를 사용하여 만들어지고 빌드되었습니다.
 
-### `npm start`
+<br/>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Introduce
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- ****Description****
 
-### `npm test`
+  사용자에게 3가지의 분위기가 주어지고 해당 분위기를 선택하면 선택된 분위기에 따라서 랜덤한 음원샘플이 제공됩니다. 사용자는 제공된 샘플을 조합하거나, 편집하여 자신의 취향에 맞는 커스텀 BGM을 만들고 저장할 수 있습니다.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+  이 서비스는 작곡 시퀀서 프로그램을 다뤄보지 않은 사용자가 간편하게 BGM을 만드는 것에 목적을 두고 있습니다.
 
-### `npm run build`
+<br/>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- ****Motivate****
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+  이전에 영상편집을 했을 당시 가장 어려운 작업 중 하나는 영상에 맞는 배경음악을 찾는것 이었습니다. 기획을 하면서 그때 당시의 상황을 떠올리게 됐고, 작곡 시퀀서를 사용해봤던 경험을 살려 커스텀한 BGM을 만드는 서비스를 기획하게 되었습니다.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<br/>
 
-### `npm run eject`
+- ****Demo****
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+  [BGM-Maker](https://www.bgm-maker.com)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+<br />
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Tech Stack
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- Frontend
+  - React.js
+  - Redux-toolkit
+  - Styled-component
+  - Tone.js
+  - WaveSurfer.js
+- Others
+  - AWS S3
+  - Jest
+- Deploy
+  - Netlify
 
-## Learn More
+<br />
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Feature
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- ****Pages****
 
-### Code Splitting
+| Menu | Main |
+| --- | --- |
+| <img src="https://user-images.githubusercontent.com/64957399/139602616-66f7f9ec-80a7-4929-a289-26827353202b.png" height="280" width="200"> | <img src="https://user-images.githubusercontent.com/64957399/139603075-fc9849ce-e117-4b67-8d0c-0de731e3882c.gif" height="280" width="400">| 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+| Detail | 
+| --- | 
+|<img src="https://user-images.githubusercontent.com/64957399/139603183-3d4df04d-2e69-4bca-8701-b2f284df451c.png" height="280" width="600">|
 
-### Analyzing the Bundle Size
+<br />
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+#### Menu
+- 신나는, 긴장감있는, 차분한 3가지의 선택지 중 사용자가 원하는 분위기를 선택합니다.
 
-### Making a Progressive Web App
+#### Main
+- 사용자가 선택한 분위기에 맞는 음원이 악기별로 랜덤하게 선택되어 제공됩니다.
+- 숫자가 써져있는 샘플 음원을 누르면 재생이 되고, 밑의 새로고침 버튼을 누르면 해당 샘플은 다른 음원으로 새로고침 됩니다.
+- Drag & Drop 으로 샘플 음원 상자를 밑의 시퀀서창에 끌어다 놓음으로써 여러 샘플을 조합 합니다.
+- 샘플 음원을 더블 클릭하면 편집을 할 수 있는 Detail 페이지로 이동합니다.
+- 시퀀서창 가장 왼쪽에 있는 조절창에서 해당 라인에 있는 샘플들의 Volume과 Reverb를 조절 할 수 있습니다.
+- 시퀀서창 가장 오른쪽과 아래에 있는 + - 버튼으로 Drop공간을 추가하거나, 축소 시킬 수 있습니다.
+- 재생 버튼을 누르면 시퀀서 창에 있는 모든 샘플이 순서에 맞게 연주 됩니다.
+- 멈춤 버튼을 누르면 연주되고 있는 샘플들이 모두 멈추게 됩니다. (다시 재생을 누를경우 멈춘곳에서 부터가 아닌 처음부터 재생됨)
+- 녹음 버튼을 누르면 현재 시퀀서창에 있는 샘플들이 연주되고, 녹음이 시작됩니다. 사용자가 다시한번 녹음 버튼을 누르는 구간까지 녹음이 된 후, 음원을 저장할 수 있는 링크가 생성됩니다.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+#### Detail
+- 특정 구간을 선택하여 샘플 음원을 자를 수 있습니다.
+- 되돌리기 버튼, 되돌리기 취소 버튼이 있습니다.
+- Fade In, Fade Out 효과를 줄 수 있습니다.
+- Biquad(먹먹한 소리로 만드는 이펙트), Compressor (강조할 곳을 더 강조해주는 이펙트), Volume 조절이 가능합니다.
+- 저장버튼을 누르면 Main 페이지로 이동하며, 사용자가 편집한 음원이 나타납니다.
 
-### Advanced Configuration
+<br />
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Scheduling
+**총 작업기간 : 2021.10.04 ~ 2021.10.23 (약 3주)**
 
-### Deployment
+- 1주차 : 기획
+  - 아이디어 브레인 스토밍
+  - 목업 : [figma](https://www.figma.com/file/mhj2xxstHATJaxNjp7U1b0/bgm-maker?node-id=0%3A1)   
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+  - 태스크보드 : [Notion Kanban](https://caramel-glider-960.notion.site/f1a5dc1cbc5b4eecb06a22614a201990?v=4f9f02b7203c4642a5831a5cf26a6804)   
 
-### `npm run build` fails to minify
+- 2주차 : 개발, 기획 변경
+  - 메인페이지 구현
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+  - 메인페이지 기능 구현 중, 현재 기획이 예상한 구현 시간보다 초과될것으로 판단. 기획을 변경하고 그에 맞게 태스크를 수정
+
+  - 변경된 기획에 따른 기능 구현
+
+- 3주차 : 개발, 배포
+  - 시범 운영 후 피드백 반영
+
+  - Netlify 배포
+
+## Challenge & Issue
+
+**1. 얕은 기획검증이 기한초과를 초래하다.**
+
+   BGM-Maker를 처음 기획할 당시 영감을 얻은것은 영화 "Her" 이다. 인공지능 운영체제인 사만다가 주인공을 위해서 즉흥적으로 피아노곡을 작곡해준 것을 모티브 삼아 초안을 그려나갔다.
+
+   사용자가 원하는 BGM의 분위기를 선택하면 그에 따른 음계와, 음길이, 코드조합이 선택되는 알고리즘을 설계하여 인공지능 사만다와 같이 즉흥으로 작곡이되고 사용자에게 제공하는것을 목표로 초기 서비스 기획을 하였다.
+
+   초기 기획으로 알고리즘을 설계하다 보니 너무 많은 경우의 수가 발생하는 것을 알게되었다. 예를들어 피아노 같은 경우 주로 사용되는 음계는 36가지 정도가 되는데, 화음을 쌓는것, 음의 길이를 결정하는 것, 코드 진행, 이 여러가지 것들이 어우러져 음악이 조화롭게 만들어져 나오기 위해선 방대한 알고리즘이 필요했다. 또한, 악기는 피아노 뿐만이 아니라 신스, 베이스, 드럼 까지 있어 각 악기에 대한 알고리즘이 따로 필요했다. 해당 작업은 나의 작업속도로 계산했을때 3주라는 기한내에 완성하지 못할것으로 예상되었다. 얕은 기획검증이 
+큰 비용이 드는 서비스 기획 변경을 초래 했다.
+
+결국 이미 멜로디가 만들어져 있는 음원 샘플을 이용하기로 서비스의 방향을 재설정하고 그에 따른 기능변화를 고려하여 예상시간 산출하고 다시 태스크 작성을 하여 일정에 맞춰 개발을 완료할 수있었다.
+
+**2. 두개의 라이브러리를 Wrapping 하다.**
+
+  <img src="https://user-images.githubusercontent.com/64957399/139603183-3d4df04d-2e69-4bca-8701-b2f284df451c.png" height="120" width="240">
+
+위의 페이지에서는 Tone.js와  WaveSurfer.js 라는 두개의 라이브러리를 의존하고 있다. 음원의 Effect조절은 Tone.js를, 파형을 그려주는 작업은 WaveSurfer.js 를 써야 했다.  
+
+각 라이브러리의 인스턴스가 생성되고 인터페이스를 사용하여 기능 구현을 진행하게 되었는데, 이때 문제가 발생하였다.  
+사용자의 일반적인 인터렉션을 따라가보면 이러하다.
+
+  1. 음원 파형을 그려준다. -> WaveSurfer.js 의존
+2. 음원 파형에 FadeIn 이나 Biquad같은 이펙트를 적용시킨다. -> Tone.js 의존
+
+여기에서 문제는 한쪽 인스턴스의 작업결과를 어떻게 구조가 다른 반대편 인스턴스에 적용시킬 수 있는가 하는 것이었다. 다행히 해결책은 있었다. 두 인스턴스가 공통적으로 갖고 있는 Audio Context와 Audio Buffer를 가져와 핸들링 하는것이었다.
+하지만 또한가지 문제가 발생했는데 코드의 양이 비대해져 가독성이 떨어지고, 컴포넌트가 무거워지게 된다는 것이었다. 이를 해결하기 위해서 아래와 같은 팩토리 함수를 작성하였다.
+
+```
+const waveManager = createWaveManager(Tone.js, WaveSurfer.js);
+
+//이 코드는 예시로 작성된 것입니다.
+
+```
+팩토리 함수에서 반환된 객체(waveManager)는 메서드로 해당 페이지의 기능을 제공하고 있고, 이 내부에선 인자로 받은 Tone.js와 WaveSurfer.js를 하나의 라이브러리처럼 동작할 수 있게끔 코드를 작성하여 문제를 해결하게 되었다.
