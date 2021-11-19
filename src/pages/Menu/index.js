@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 import MoodSelectButton from "../../components/Menu/MoodSelectButton";
 import { MOOD_TYPES } from "../../constants";
+import backgroundImage from "../../assets/images/gridImage.png";
 
 export default function MenuPage() {
   const moodList = Object.values(MOOD_TYPES);
@@ -23,7 +24,7 @@ const StyledMenuPage = styled.div`
   align-items: center;
   height: 100vh;
   opacity: 0.8;
-  background-image: url("https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F9906583E5A3CB05E39");
+  background-image: url(${backgroundImage});
 `;
 
 const MenuPageBorder = styled.div`

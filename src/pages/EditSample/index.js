@@ -10,7 +10,7 @@ import { waveSurferDefaultOptions } from "../../customWrapper/defaultOptions";
 import SampleWaveForm from "../../components/EditSample/SampleWaveForm";
 import Header from "../../components/common/Header";
 
-export default function EditSample({ history }) {
+export default function EditSamplePage({ history }) {
   const sampleUrl = history.location.state;
   const waveManager =
     CreateWaveManager(WaveSurfer, { TimelinePlugin, RegionsPlugin }, Tone, waveSurferDefaultOptions, { cutWaveUtil });

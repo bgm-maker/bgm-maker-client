@@ -44,7 +44,6 @@ const instrumentsSlice = createSlice({
           state.base[instrument].push([sample, url]);
         });
       });
-
     },
     saveEditedWaveSampled: (state, action) => {
       const { wave, url } = action.payload;
