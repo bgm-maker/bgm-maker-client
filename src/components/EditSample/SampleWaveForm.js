@@ -2,8 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { MdTabUnselected } from "react-icons/md"
-import { BsScissors } from "react-icons/bs"
+import { MdTabUnselected } from "react-icons/md";
+import { BsScissors } from "react-icons/bs";
 import { TiArrowBackOutline } from "react-icons/ti";
 import { TiArrowForwardOutline } from "react-icons/ti";
 import { IoPlay, IoPause, IoStop, IoSaveOutline } from "react-icons/io5";

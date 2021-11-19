@@ -3,7 +3,7 @@ import { createGlobalStyle } from "styled-components";
 
 import MenuPage from "./pages/Menu";
 import MainPage from "./pages/Main";
-import EditSample from "./pages/EditSample";
+import EditSamplePage from "./pages/EditSample";
 
 export default function App() {
   return (
@@ -11,7 +11,7 @@ export default function App() {
       <StyledGlobal />
       <Route path="/" exact component={MenuPage} />
       <Route path="/main" component={MainPage} />
-      <Route path="/editSample" component={EditSample} />
+      <Route path="/editSample" component={EditSamplePage} />
     </BrowserRouter>
   );
 }

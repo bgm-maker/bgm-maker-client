@@ -57,7 +57,7 @@ export default function InstrumentSampleSource({ isDropped, handleShowSample, du
     >
       <Contents>
         <Text size="20px">{order}</Text>
-        <Text>click & Drag</Text>
+        <Text>Click / DoubleClick / Drag</Text>
       </Contents>
     </SampleSource>
   );

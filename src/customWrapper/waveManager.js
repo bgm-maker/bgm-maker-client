@@ -73,7 +73,7 @@ export default function CreateWaveManager(waveSurfer, waveSurferPlugins, toneJs,
       if (Object.keys(region).length !== 0) return;
 
       region.remove();
-      region = undefined;
+      region = {};
     },
     cutWave(start, end) {
       if (!start && !end) return;
