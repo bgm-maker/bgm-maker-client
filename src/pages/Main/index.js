@@ -1,8 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-import InstrumentSampleBox from "../../components/Main/InstrumentSampleBox";
-import SequencerBox from "../../components/Main/SequencerBox";
+import InstrumentSampleContainer from "../../components/Main/InstrumentSampleContainer";
+import SequencerContainer from "../../components/Main/SequencerContainer";
 import Player from "../../components/Main/Player";
 import Header from "../../components/common/Header";
 
@@ -14,12 +14,12 @@ export default function MainPage({ history }) {
     <StyledMainPage>
       <Header>/</Header>
       <Border>
-        <InstrumentSampleBox
+        <InstrumentSampleContainer
           history={history}
           nowPlayingSample={nowPlayingSample}
           setNowPlayingSample={setNowPlayingSample}
         />
-        <SequencerBox
+        <SequencerContainer
           setTime={setTime}
         />
         <Player

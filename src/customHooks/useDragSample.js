@@ -11,6 +11,7 @@ export default function useDragSample(handleShowSample, sample, instType, order)
     item: sampler,
     end: () => {
       if (!handleShowSample) return;
+
       handleShowSample(false);
     },
     collect: (monitor) => ({

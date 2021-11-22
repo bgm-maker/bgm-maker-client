@@ -7,7 +7,7 @@ import {
   INITIAL_DROP_ZONE_NOTE_COUNT
 } from "../../constants";
 
-export default function SequencerBox({ setTime }) {
+export default function SequencerContainer({ setTime }) {
   const [dropZoneRowCount, setDropZoneRowCount] = useState(INITIAL_DROP_ZONE_ROW_COUNT);
   const [dropZoneNoteCount, setDropZoneNoteCount] = useState(INITIAL_DROP_ZONE_NOTE_COUNT);
 
@@ -59,7 +59,7 @@ export default function SequencerBox({ setTime }) {
             );
           })}
         </SequencerRowLine>
-        <ModulateRowLineButton >
+        <ModulateRowLineButton>
           <Button value="+" onClick={handleExtendDropZoneRow} rowLine>+</Button>
           <Button value="-" onClick={handleExtendDropZoneRow} rowLine>-</Button>
         </ModulateRowLineButton>
@@ -71,6 +71,7 @@ export default function SequencerBox({ setTime }) {
     </SequencerZoneWrapper>
   );
 }
+
 const SequencerZoneWrapper = styled.div`
   display: flex;
 `;

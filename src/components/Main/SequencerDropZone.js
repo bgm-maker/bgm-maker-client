@@ -1,13 +1,13 @@
 import styled from "styled-components";
 
-import EffectZone from "./EffectZone";
+import SequencerEffectZone from "./SequencerEffectZone";
 import SequencerNote from "./SequencerNote";
 
 export default function SequencerDropZone({ dropZoneRowNum, isFirstDropZone, dropZoneNoteCount }) {
 
   return (
     <SingleRowLine>
-      <EffectZone dropZoneRowNum={dropZoneRowNum} isFirstDropZone={isFirstDropZone} />
+      <SequencerEffectZone dropZoneRowNum={dropZoneRowNum} isFirstDropZone={isFirstDropZone} />
       {
         Array.from(Array(dropZoneNoteCount)).map((_, index) => (
           <div key={index}>

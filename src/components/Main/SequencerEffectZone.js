@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { INITIAL_VOLUME, INITIAL_REVERB } from "../../constants";
 import connectEffectAndSample from "../../util/connectEffectAndSample";
 
-export default function EffectZone({ isFirstDropZone, dropZoneRowNum }) {
+export default function SequencerEffectZone({ isFirstDropZone, dropZoneRowNum }) {
   const [effect, setEffect] = useState({
     volume: INITIAL_VOLUME,
     reverb: INITIAL_REVERB,

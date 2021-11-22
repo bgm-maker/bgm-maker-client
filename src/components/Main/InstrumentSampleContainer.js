@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { FcRefresh } from "react-icons/fc";
 import styled from "styled-components";
@@ -12,16 +11,11 @@ import {
   refreshInstrument
 } from "../../feature/instrumentSlice";
 
-export default function InstrumentSampleBox({ history, nowPlayingSample, setNowPlayingSample }) {
+export default function InstrumentSampleContainer({ history, nowPlayingSample, setNowPlayingSample }) {
   const instrument = useSelector(selectInstrument);
   const editedSamples = useSelector(selectEditedWaveSample);
   const selectedRandomNums = useSelector(selectedRandomNum);
-  const [myPresetList, setMyPresetList] = useState([]);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    setMyPresetList(editedSamples);
-  }, []);
 
   function handleRefresh(param) {
     const { instType } = param;
@@ -112,7 +106,7 @@ export default function InstrumentSampleBox({ history, nowPlayingSample, setNowP
       )}
       <EditedSampleWrapper>
         <SampleType>Edited Sample</SampleType>
-        {myPresetList.map((sample) =>
+        {editedSamples.map((sample) =>
           <Sample>
             <InstrumentSampleSource
               sample={sample}
