@@ -4,23 +4,23 @@ export default function connectEffectAndSample(dropZoneRowSamples, effectName, e
   switch (effectName) {
     case "reverb": {
       if (effectValue === 0) {
-        dropZoneRowSamples?.forEach((sample) => {
-          sample.disconnect();
-          sample.toDestination();
-        });
+        for (const time in dropZoneRowSamples) {
+          dropZoneRowSamples[time].sample.sample.disconnect();
+          dropZoneRowSamples[time].sample.sample.toDestination();
+        }
         break;
       }
 
-      dropZoneRowSamples?.forEach((sample) => {
+      for (const time in dropZoneRowSamples) {
         const reverb = new Tone.Reverb(Number(effectValue)).toDestination();
-        sample.connect(reverb);
-      });
+        dropZoneRowSamples[time].sample.sample.connect(reverb);
+      }
       break;
     }
     case "volume": {
-      dropZoneRowSamples?.forEach((sample) => {
-        sample.volume.value = effectValue;
-      });
+      for (const time in dropZoneRowSamples) {
+        dropZoneRowSamples[time].sample.sample.volume.value = effectValue;
+      }
       break;
     }
     default: {

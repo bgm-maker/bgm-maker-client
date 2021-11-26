@@ -1,33 +1,36 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-  allSamples: [],
-};
+const initialState = {};
 
 const sequencerSamplesSlice = createSlice({
   name: "sequencerSamples",
   initialState,
   reducers: {
     addSequencerSamples: (state, action) => {
-      const { sampler, dropZoneRowNum } = action.payload;
+      const { sampleInfo, dropZoneRowNum, time } = action.payload;
 
       if (!state.hasOwnProperty(dropZoneRowNum)) {
-        state[dropZoneRowNum] = [];
+        state[dropZoneRowNum] = {};
       }
+      state[dropZoneRowNum][time] = sampleInfo;
+    },
+    removeSequencerSample: (state, action) => {
+      const { dropZoneRowNum, time } = action.payload;
 
-      state[dropZoneRowNum].push(sampler[0]);
-      state.allSamples.push(sampler[0]);
+      delete state[dropZoneRowNum][time];
     },
     initializeSequencerSamples: (state, action) => {
-      for (const key in state) {
-        state[key].length = 0;
-      }
+      return initialState;
     },
   },
 });
 
-export const { addSequencerSamples, initializeSequencerSamples } = sequencerSamplesSlice.actions;
+export const {
+  addSequencerSamples,
+  removeSequencerSample,
+  initializeSequencerSamples
+} = sequencerSamplesSlice.actions;
 
 export default sequencerSamplesSlice.reducer;
 
-export const selectSequencerSamples = (state) => state.samples;
+export const selectSequencerSamples = (state) => state.sequencerSamples;

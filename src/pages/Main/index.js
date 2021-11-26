@@ -1,33 +1,20 @@
-import { useState } from "react";
 import styled from "styled-components";
 
-import InstrumentSampleBox from "../../components/Main/InstrumentSampleBox";
-import SequencerBox from "../../components/Main/SequencerBox";
-import Player from "../../components/Main/Player";
+import InstrumentSampleZone from "../../components/Main/organisms/InstrumentSampleZone";
+import SequencerDropZone from "../../components/Main/organisms/SequencerDropZone";
+import PlayerZone from "../../components/Main/organisms/PlayerZone";
 import Header from "../../components/common/Header";
 
-export default function MainPage({ history }) {
-  const [time, setTime] = useState();
-  const [nowPlayingSample, setNowPlayingSample] = useState([]);
+export default function MainPage() {
 
   return (
     <StyledMainPage>
       <Header>/</Header>
-      <Border>
-        <InstrumentSampleBox
-          history={history}
-          nowPlayingSample={nowPlayingSample}
-          setNowPlayingSample={setNowPlayingSample}
-        />
-        <SequencerBox
-          setTime={setTime}
-        />
-        <Player
-          time={time}
-          nowPlayingSample={nowPlayingSample}
-          setNowPlayingSample={setNowPlayingSample}
-        />
-      </Border>
+      <StyledMainBorder>
+        <InstrumentSampleZone />
+        <SequencerDropZone />
+        <PlayerZone />
+      </StyledMainBorder>
     </StyledMainPage>
   );
 }
@@ -39,7 +26,7 @@ const StyledMainPage = styled.div`
   background-color: #e0d2c4;
 `;
 
-const Border = styled.div`
+const StyledMainBorder = styled.div`
   margin: 30px;
   padding: 30px;
   border-radius: 10px;
