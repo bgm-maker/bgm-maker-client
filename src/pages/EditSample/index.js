@@ -12,7 +12,7 @@ export default function EditSamplePage({ history }) {
   return (
     <StyledEditSamplePage>
       <Header>/main</Header>
-      <WaveFormZone waveHandler={waveHandler} setWaveHandler={setWaveHandler} sampleUrl={sampleUrl} />
+      <WaveFormZone setWaveHandler={setWaveHandler} sampleUrl={sampleUrl} />
       <WaveEditZone waveHandler={waveHandler} />
     </StyledEditSamplePage>
   );
