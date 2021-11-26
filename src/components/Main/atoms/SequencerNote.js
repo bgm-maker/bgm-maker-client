@@ -27,7 +27,6 @@ export default function SequencerNote({ measure, quarter, dropZoneRowNum }) {
       dispatch(removeSequencerSample({ dropZoneRowNum, time }));
       Tone.Transport.clear(sampleSchedule.current);
       sampleSchedule.current = null;
-      return;
     }
 
     if (isDropped) {
