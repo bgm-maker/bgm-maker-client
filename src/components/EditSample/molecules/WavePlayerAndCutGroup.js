@@ -3,14 +3,14 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { MdTabUnselected } from "react-icons/md";
 import { BsScissors } from "react-icons/bs";
-import { TiArrowBackOutline } from "react-icons/ti";
-import { TiArrowForwardOutline } from "react-icons/ti";
+import { TiArrowBackOutline, TiArrowForwardOutline } from "react-icons/ti";
 import { IoPlay, IoPause, IoStop, IoSaveOutline } from "react-icons/io5";
 import styled from "styled-components";
 
-import { saveEditedSample } from "../../feature/instrumentSlice";
+import { saveEditedSample } from "../../../feature/instrumentSlice";
+import Button from "../../common/atoms/Button";
 
-export default function PlayerAndCutTools({ waveHandler }) {
+export default function WavePlayerAndCutGroup({ waveHandler }) {
   const [hasRegion, setHasRegion] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const dispatch = useDispatch();
@@ -67,38 +67,38 @@ export default function PlayerAndCutTools({ waveHandler }) {
     <div>
       <EditButtonWrapper>
         {hasRegion ?
-          <EditButton onClick={handleCutWave}>
+          <Button onClick={handleCutWave}>
             <BsScissors />
-          </EditButton>
+          </Button>
           :
-          <EditButton onClick={handleToggleRegion}>
+          <Button onClick={handleToggleRegion}>
             <MdTabUnselected />
-          </EditButton>
+          </Button>
         }
-        <EditButton onClick={handleRewindWave}>
+        <Button onClick={handleRewindWave}>
           <TiArrowBackOutline />
-        </EditButton>
-        <EditButton onClick={handleForwardSample}>
+        </Button>
+        <Button onClick={handleForwardSample}>
           <TiArrowForwardOutline />
-        </EditButton>
+        </Button>
       </EditButtonWrapper>
 
       <EditButtonWrapper>
         {isPlaying ?
-          <EditButton onClick={handleOnPause}>
+          <Button onClick={handleOnPause}>
             <IoPause />
-          </EditButton> :
-          <EditButton onClick={handleOnPlay}>
+          </Button> :
+          <Button onClick={handleOnPlay}>
             <IoPlay />
-          </EditButton>
+          </Button>
         }
-        <EditButton onClick={handleOnStop}>
+        <Button onClick={handleOnStop}>
           <IoStop />
-        </EditButton>
+        </Button>
         <Link to="/main">
-          <EditButton onClick={handleSaveWave}>
+          <Button onClick={handleSaveWave}>
             <IoSaveOutline />
-          </EditButton>
+          </Button>
         </Link>
       </EditButtonWrapper>
     </div>
@@ -110,20 +110,4 @@ const EditButtonWrapper = styled.div`
   height: 50px;
   justify-content: space-around;
   margin: 15px 5px 10px 5px;
-`;
-
-const EditButton = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 48px;
-  height:40px;
-  border-style: solid;
-  border-width: 1px;
-  border-color: #E6E6E6;
-  border-radius: 4px;
-  background-color: #e0d2c4;
-  color: black;
-  font-size: 23px;
-  box-shadow: 1.5px 1.5px 4px 1px #9E846B;
 `;

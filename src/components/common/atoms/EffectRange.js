@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export default function SequencerEffectRange(props) {
+export default function EffectRange(props) {
 
   return (
     <div>
