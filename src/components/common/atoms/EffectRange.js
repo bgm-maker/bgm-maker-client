@@ -4,15 +4,25 @@ export default function EffectRange(props) {
 
   return (
     <div>
-      <StyledText>{props.name}</StyledText>
+      <StyledText {...props} >{props.name}</StyledText>
       <StyledRange {...props} />
     </div>
   );
 };
 
 const StyledRange = styled.input`
-  height: 14px;
-  width: 125px;
+  height: ${(props) => {
+    if (props.wave) {
+      return "25px";
+    }
+    return "14px";
+  }};
+  width: ${(props) => {
+    if (props.wave) {
+      return "190px";
+    }
+    return "125px";
+  }};
   border-radius: 12px;
   background-color: #93B5C6;
   background: white;
@@ -23,5 +33,10 @@ const StyledRange = styled.input`
 
 const StyledText = styled.p`
   margin-top: 5px;
-  font-size: 11px;
+  font-size: ${(props) => {
+    if (props.wave) {
+      return "15px";
+    }
+    return "11px";
+  }};
 `;

@@ -21,6 +21,7 @@ export default function WaveEffectGroup({ waveHandler }) {
         min={0} max={10}
         value={effectsValue.biquad || 0}
         onChange={handleEffects}
+        wave
       />
       <EffectRange
         type="range"
@@ -29,6 +30,7 @@ export default function WaveEffectGroup({ waveHandler }) {
         max={0}
         value={effectsValue.compressor || -30}
         onChange={handleEffects}
+        wave
       />
       <EffectRange
         type="range"
@@ -37,6 +39,7 @@ export default function WaveEffectGroup({ waveHandler }) {
         max={7}
         value={effectsValue.volume || 0}
         onChange={handleEffects}
+        wave
       />
     </EffectWrapper>
   );

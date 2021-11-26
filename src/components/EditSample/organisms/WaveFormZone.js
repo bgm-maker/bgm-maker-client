@@ -5,9 +5,9 @@ import TimelinePlugin from "wavesurfer.js/dist/plugin/wavesurfer.timeline";
 import RegionsPlugin from "wavesurfer.js/dist/plugin/wavesurfer.regions";
 import * as Tone from "tone";
 
-import CreateWaveManager from "../../customWrapper/waveManager";
-import cutWaveUtil from "../../util/cutWave";
-import { waveSurferDefaultOptions } from "../../customWrapper/defaultOptions";
+import CreateWaveManager from "../../../customWrapper/waveManager";
+import cutWaveUtil from "../../../util/cutWave";
+import { waveSurferDefaultOptions } from "../../../customWrapper/defaultOptions";
 
 export default function WaveFormZone({ setWaveHandler, sampleUrl }) {
   const waveFormEl = useRef("waveSurfer");
