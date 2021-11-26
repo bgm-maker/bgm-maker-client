@@ -1,9 +1,9 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-import SampleWaveFormContainer from "../../components/EditSample/SampleWaveFormContainer";
-import SampleWaveEditContainer from "../../components/EditSample/SampleWaveEditContainer";
-import Header from "../../components/common/Header";
+import WaveEditZone from "../../components/EditSample/organisms/WaveEditZone";
+import WaveFormZone from "../../components/EditSample/organisms/WaveFormZone";
+import Header from "../../components/common/atoms/Header";
 
 export default function EditSamplePage({ history }) {
   const [waveHandler, setWaveHandler] = useState(null);
@@ -12,8 +12,8 @@ export default function EditSamplePage({ history }) {
   return (
     <StyledEditSamplePage>
       <Header>/main</Header>
-      <SampleWaveFormContainer waveHandler={waveHandler} setWaveHandler={setWaveHandler} sampleUrl={sampleUrl} />
-      <SampleWaveEditContainer waveHandler={waveHandler} />
+      <WaveFormZone setWaveHandler={setWaveHandler} sampleUrl={sampleUrl} />
+      <WaveEditZone waveHandler={waveHandler} />
     </StyledEditSamplePage>
   );
 }

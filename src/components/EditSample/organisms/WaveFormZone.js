@@ -5,11 +5,11 @@ import TimelinePlugin from "wavesurfer.js/dist/plugin/wavesurfer.timeline";
 import RegionsPlugin from "wavesurfer.js/dist/plugin/wavesurfer.regions";
 import * as Tone from "tone";
 
-import CreateWaveManager from "../../customWrapper/waveManager";
-import cutWaveUtil from "../../util/cutWave";
-import { waveSurferDefaultOptions } from "../../customWrapper/defaultOptions";
+import CreateWaveManager from "../../../customWrapper/waveManager";
+import cutWaveUtil from "../../../util/cutWave";
+import { waveSurferDefaultOptions } from "../../../customWrapper/defaultOptions";
 
-export default function SampleWaveFormContainer({ setWaveHandler, sampleUrl }) {
+export default function WaveFormZone({ setWaveHandler, sampleUrl }) {
   const waveFormEl = useRef("waveSurfer");
   const timeLineEl = useRef("timeline");
 
@@ -31,21 +31,21 @@ export default function SampleWaveFormContainer({ setWaveHandler, sampleUrl }) {
   }, []);
 
   return (
-    <PageWrapper>
-      <WaveFormWrapper>
+    <StyledWaveFormZone>
+      <StyledWaveFormWrapper>
         <WaveForm ref={waveFormEl}></WaveForm>
         <TimeLine ref={timeLineEl}></TimeLine>
-      </WaveFormWrapper>
-    </PageWrapper>
+      </StyledWaveFormWrapper>
+    </StyledWaveFormZone>
   );
 }
 
-const PageWrapper = styled.div`
+const StyledWaveFormZone = styled.div`
   display: flex;
   margin-top: 90px;
 `;
 
-const WaveFormWrapper = styled.div`
+const StyledWaveFormWrapper = styled.div`
   height: 400px;
   margin: 50px 0px 30px 50px;
   margin-top: 34px;

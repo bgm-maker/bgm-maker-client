@@ -1,41 +1,19 @@
 import styled from "styled-components";
 
-export default function FadeInOutTools({ waveHandler }) {
-
-  function handleFadeIn() {
-    waveHandler.toggleFadeIn();
-  }
-
-  function handleFadeOut() {
-    waveHandler.toggleFadeOut();
-  }
+export default function WaveFadeInOutToggle(props) {
 
   return (
-    <FadeInOutToggleWrapper>
-      <div>
-        <p>Fade In</p>
-        <SliderBox>
-          <FadeInOutToggle type="checkbox" onClick={handleFadeIn} />
-          <ToggleSlider></ToggleSlider>
-        </SliderBox>
-      </div>
-      <div>
-        <p>Fade Out</p>
-        <SliderBox>
-          <FadeInOutToggle type="checkbox" onClick={handleFadeOut} />
-          <ToggleSlider></ToggleSlider>
-        </SliderBox>
-      </div>
-    </FadeInOutToggleWrapper>
+    <div>
+      <p>{props.name}</p>
+      <StyledSliderBox>
+        <StyledFadeInOutToggle {...props} />
+        <ToggleSlider></ToggleSlider>
+      </StyledSliderBox>
+    </div>
   );
 }
 
-const FadeInOutToggleWrapper = styled.div`
-  display: flex;
-  justify-content: space-around;
-  margin-top: 30px;
-`;
-const SliderBox = styled.label`
+const StyledSliderBox = styled.label`
   position: relative;
   display: inline-block;
   width: 70px;
@@ -69,7 +47,7 @@ const ToggleSlider = styled.span`
   }
 `;
 
-const FadeInOutToggle = styled.input`
+const StyledFadeInOutToggle = styled.input`
   display: none;
 
   &:checked {

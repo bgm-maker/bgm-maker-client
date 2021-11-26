@@ -10,7 +10,7 @@ import { selectDropZoneCount } from "../../../feature/sequencerDropZoneCountSlic
 import { selectedRecorder } from "../../../feature/instrumentSlice";
 import { updateCurrentNote, initCurrentNote, selectCurrentNote } from "../../../feature/showCurrentNoteSlice";
 import { selectNowPlayingSample, initNowPlayingSample } from "../../../feature/nowPlayingSampleSlice";
-import Button from "../../common/Button";
+import Button from "../../common/atoms/Button";
 
 export default function PlayerZone() {
   const sequencerAllSamples = useSelector(selectSequencerSamples);

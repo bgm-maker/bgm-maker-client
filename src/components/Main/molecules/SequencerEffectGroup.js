@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 import { INITIAL_VOLUME, INITIAL_REVERB } from "../../../constants";
-import SequencerEffectRange from "../atoms/SequencerEffectRange";
+import EffectRange from "../../common/atoms/EffectRange";
 import connectEffectAndSample from "../../../util/connectEffectAndSample";
 
 export default function SequencerEffectGroup({ dropZoneRowNum }) {
@@ -22,7 +22,7 @@ export default function SequencerEffectGroup({ dropZoneRowNum }) {
 
   return (
     <StyledEffectGroup>
-      <SequencerEffectRange
+      <EffectRange
         type="range"
         min="-10"
         max="10"
@@ -30,7 +30,7 @@ export default function SequencerEffectGroup({ dropZoneRowNum }) {
         name="volume"
         onChange={handleChangeEffectValue}
       />
-      <SequencerEffectRange
+      <EffectRange
         type="range"
         min="0"
         max="10"

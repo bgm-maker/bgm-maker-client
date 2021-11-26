@@ -3,7 +3,7 @@ import styled from "styled-components";
 import InstrumentSampleZone from "../../components/Main/organisms/InstrumentSampleZone";
 import SequencerDropZone from "../../components/Main/organisms/SequencerDropZone";
 import PlayerZone from "../../components/Main/organisms/PlayerZone";
-import Header from "../../components/common/Header";
+import Header from "../../components/common/atoms/Header";
 
 export default function MainPage() {
 
