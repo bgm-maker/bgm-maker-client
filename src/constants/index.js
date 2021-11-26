@@ -19,8 +19,6 @@ export const ITEM_TYPES = {
 
 export const MOOD_TYPES = {
   COOL: ["cool", "신나는"],
-  TENSION: ["tension", "긴장감있는"],
-  CALM: ["calm", "차분한"],
 };
 
 export const INSTRUMENTS_QUANTITY = {
