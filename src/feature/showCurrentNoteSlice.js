@@ -21,7 +21,7 @@ const showCurrentNoteSlice = createSlice({
       return state;
     },
     initCurrentNote: (state, action) => {
-      return state = "0:0";
+      return initialState;
     },
   },
 });

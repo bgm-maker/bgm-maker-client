@@ -4,11 +4,15 @@ import logger from "redux-logger";
 import instrumentsReducer from "./instrumentSlice";
 import sequencerSamplesReducer from "./sequencerSamplesSlice";
 import showCurrentNoteReducer from "./showCurrentNoteSlice";
+import nowPlayingSampleReducer from "./nowPlayingSampleSlice";
+import sequencerDropZoneCountReducer from "./sequencerDropZoneCountSlice";
 
 const appReducer = combineReducers({
   instruments: instrumentsReducer,
-  samples: sequencerSamplesReducer,
+  sequencerSamples: sequencerSamplesReducer,
   currentNote: showCurrentNoteReducer,
+  nowPlayingSample: nowPlayingSampleReducer,
+  dropZoneCount: sequencerDropZoneCountReducer,
 });
 
 function rootReducer(state, action) {

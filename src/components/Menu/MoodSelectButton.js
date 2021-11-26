@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 
-import { getInstruments } from "../../feature/instrumentSlice";
+import { createInstrumentSamples } from "../../feature/instrumentSlice";
 import selectRandomInstruments from "../../util/selectRandomInstruments";
 
 export default function MoodSelectButton({ mood }) {
@@ -12,7 +12,7 @@ export default function MoodSelectButton({ mood }) {
   function handleMakeSampler(event) {
     const selectedMood = event.target.getAttribute("value");
     const selectedInstruments = selectRandomInstruments(selectedMood);
-    dispatch(getInstruments({ selectedMood, selectedInstruments }));
+    dispatch(createInstrumentSamples({ selectedMood, selectedInstruments }));
   }
 
   return (

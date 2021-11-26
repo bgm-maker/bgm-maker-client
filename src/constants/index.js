@@ -2,11 +2,16 @@ export const INSTRUMENTS_OPTION_COUNT = 5;
 
 export const INITIAL_DROP_ZONE_ROW_COUNT = 4;
 
+export const INITIAL_DROP_ZONE_NOTE_COUNT = 8;
+
 export const INITIAL_VOLUME = 1;
 
 export const INITIAL_REVERB = 0;
 
-export const INITIAL_DROP_ZONE_NOTE_COUNT = 8;
+export const MODULATE_BUTTON_TYPE = {
+  ROW: "row",
+  NOTE: "note",
+};
 
 export const ITEM_TYPES = {
   INSTRUMENT_SAMPLE: "instrument_sample",

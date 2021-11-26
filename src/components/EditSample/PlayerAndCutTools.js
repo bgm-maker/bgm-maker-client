@@ -8,7 +8,7 @@ import { TiArrowForwardOutline } from "react-icons/ti";
 import { IoPlay, IoPause, IoStop, IoSaveOutline } from "react-icons/io5";
 import styled from "styled-components";
 
-import { saveEditedWaveSampled } from "../../feature/instrumentSlice";
+import { saveEditedSample } from "../../feature/instrumentSlice";
 
 export default function PlayerAndCutTools({ waveHandler }) {
   const [hasRegion, setHasRegion] = useState(false);
@@ -57,10 +57,10 @@ export default function PlayerAndCutTools({ waveHandler }) {
   }
 
   function handleSaveWave() {
-    const wave = waveHandler.getWave;
-    const url = waveHandler.getUrl;
+    const sample = waveHandler.getWave;
+    const sampleUrl = waveHandler.getUrl;
 
-    dispatch(saveEditedWaveSampled({ wave, url }));
+    dispatch(saveEditedSample({ sample, sampleUrl }));
   }
 
   return (
@@ -82,6 +82,7 @@ export default function PlayerAndCutTools({ waveHandler }) {
           <TiArrowForwardOutline />
         </EditButton>
       </EditButtonWrapper>
+
       <EditButtonWrapper>
         {isPlaying ?
           <EditButton onClick={handleOnPause}>
