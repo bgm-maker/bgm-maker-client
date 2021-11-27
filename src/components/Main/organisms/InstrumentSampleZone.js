@@ -70,5 +70,4 @@ const StyledSampleWrapper = styled.div`
   position: relative;
   left: 33px;
   width: 985px;
-  /* justify-content: space-; */
 `;
