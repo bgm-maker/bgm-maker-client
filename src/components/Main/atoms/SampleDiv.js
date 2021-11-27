@@ -81,6 +81,7 @@ const StyledSampleDiv = styled.div`
     return `${sampleCount * 30.9}px`;
   }};
   height: 40px;
+  margin-right: 70px;
   border-style: solid;
   border-width: 0.1px;
   border-color: #E6E6E6;
