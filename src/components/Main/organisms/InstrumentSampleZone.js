@@ -48,13 +48,13 @@ export default function InstrumentSampleZone() {
       })}
       <StyledSampleRowLine>
         <SampleTypeText>Edited Sample</SampleTypeText>
-        {editedSamples.map((item, index) => (
-          <StyledSampleWrapper>
+        <StyledSampleWrapper>
+          {editedSamples.map((item, index) => (
             <SampleGroup instType="editedSample" sample={item} order={index}>
               <SampleGroup.SampleDiv />
             </SampleGroup>
-          </StyledSampleWrapper>
-        ))}
+          ))}
+        </StyledSampleWrapper>
       </StyledSampleRowLine>
     </div>
   );
@@ -70,5 +70,5 @@ const StyledSampleWrapper = styled.div`
   position: relative;
   left: 33px;
   width: 985px;
-  justify-content: space-between;
+  /* justify-content: space-; */
 `;
