@@ -19,4 +19,4 @@ const StyledMenuPage = styled.div`
   height: 100vh;
   opacity: 0.8;
   background-image: url(${backgroundImage});
-`;
+  `;
