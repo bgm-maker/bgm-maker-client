@@ -12,14 +12,23 @@ export default function EditSamplePage({ history }) {
   return (
     <StyledEditSamplePage>
       <Header>/main</Header>
-      <WaveFormZone setWaveHandler={setWaveHandler} sampleUrl={sampleUrl} />
-      <WaveEditZone waveHandler={waveHandler} />
+      <StyledWaveZone>
+        <WaveFormZone setWaveHandler={setWaveHandler} sampleUrl={sampleUrl} />
+        <WaveEditZone waveHandler={waveHandler} />
+      </StyledWaveZone>
     </StyledEditSamplePage>
   );
 }
 
 const StyledEditSamplePage = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
   height: 100vh;
-  display: flex;
   background-color: #e0d2c4;
+`;
+
+const StyledWaveZone = styled.div`
+  display: flex;
 `;

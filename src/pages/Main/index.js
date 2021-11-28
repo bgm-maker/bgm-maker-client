@@ -27,7 +27,7 @@ const StyledMainPage = styled.div`
 `;
 
 const StyledMainBorder = styled.div`
-  margin: 30px;
+  margin: 10px 30px 30px 30px;
   padding: 30px;
   border-radius: 10px;
   background-color: white;

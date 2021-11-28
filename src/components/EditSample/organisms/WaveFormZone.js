@@ -47,8 +47,7 @@ const StyledWaveFormZone = styled.div`
 
 const StyledWaveFormWrapper = styled.div`
   height: 400px;
-  margin: 50px 0px 30px 50px;
-  margin-top: 34px;
+  margin: 0px 0px 30px 50px;
   background: white;
   padding: 20px;
   border-radius: 30px;
