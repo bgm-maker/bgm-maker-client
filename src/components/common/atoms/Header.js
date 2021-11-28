@@ -20,9 +20,6 @@ export default function Header({ children }) {
 
 const PageMoveButton = styled.div`
   display: flex;
-  position: absolute;
-  top: 10px;
-  right: 29px;
   justify-content: center;
   align-items: center;
   width: 120px;
@@ -31,6 +28,8 @@ const PageMoveButton = styled.div`
   padding: 2px 2px;
   border-radius: 10px;
   border: 0.1px solid #F2F6F5;
+  margin-top: 10px;
+  margin-left: 30px;
   font-weight: 100;
   color: #F2F6F5;
   background: #545658;
