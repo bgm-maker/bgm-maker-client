@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import SelectMoodZone from "../../components/Menu/organisms/SelectMoodZone";
-import backgroundImage from "../../assets/images/gridImage.png";
+import backgroundImage from "../../assets/images/gridImage.svg";
 
 export default function MenuPage() {
 
@@ -19,4 +19,4 @@ const StyledMenuPage = styled.div`
   height: 100vh;
   opacity: 0.8;
   background-image: url(${backgroundImage});
-  `;
+`;
