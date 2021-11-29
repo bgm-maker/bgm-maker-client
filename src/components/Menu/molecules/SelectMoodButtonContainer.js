@@ -1,14 +1,9 @@
-import { lazy } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import SelectMoodButton from "../atom/SelectMoodButton";
 import { createInstrumentSamples } from "../../../feature/instrumentSlice";
 import selectRandomInstruments from "../../../util/selectRandomInstruments";
-// const { createInstrumentSamples } = lazy(() => {
-//   console.log(11111);
-// import("../../../feature/instrumentSlice")
-// });
 
 export default function SelectMoodButtonContainer({ mood }) {
   const dispatch = useDispatch();
