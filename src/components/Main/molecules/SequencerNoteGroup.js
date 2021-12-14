@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
-import SequencerMeasureCount from "../atoms/SequencerMeasureCount";
 import SequencerNote from "../atoms/SequencerNote";
 import { selectDropZoneCount } from "../../../feature/sequencerDropZoneCountSlice";
 
@@ -11,15 +10,12 @@ export default function SequencerNoteGroup({ isFirstRowLine, dropZoneRowNum }) {
   return (
     <StyledSingleRowLine>
       {Array.from(Array(dropZoneCount.noteCount)).map((_, index) => (
-        <div>
-          {isFirstRowLine && <SequencerMeasureCount>{index + 1}</SequencerMeasureCount>}
-          <StyledMeasure>
-            <SequencerNote measure={index} quarter={1} dropZoneRowNum={dropZoneRowNum} />
-            <SequencerNote measure={index} quarter={2} dropZoneRowNum={dropZoneRowNum} />
-            <SequencerNote measure={index} quarter={3} dropZoneRowNum={dropZoneRowNum} />
-            <SequencerNote measure={index} quarter={4} dropZoneRowNum={dropZoneRowNum} />
-          </StyledMeasure>
-        </div>
+        <StyledMeasure>
+          <SequencerNote measure={index} quarter={1} dropZoneRowNum={dropZoneRowNum} />
+          <SequencerNote measure={index} quarter={2} dropZoneRowNum={dropZoneRowNum} />
+          <SequencerNote measure={index} quarter={3} dropZoneRowNum={dropZoneRowNum} />
+          <SequencerNote measure={index} quarter={4} dropZoneRowNum={dropZoneRowNum} />
+        </StyledMeasure>
       ))}
     </StyledSingleRowLine>
   );
@@ -27,7 +23,9 @@ export default function SequencerNoteGroup({ isFirstRowLine, dropZoneRowNum }) {
 
 const StyledSingleRowLine = styled.div`
   display: flex;
-  width: 993px;
+  position: absolute;
+  width: 70vw;
+  left: 15vw;
 `;
 
 const StyledMeasure = styled.div`

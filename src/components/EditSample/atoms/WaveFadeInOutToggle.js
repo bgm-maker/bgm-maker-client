@@ -4,7 +4,7 @@ export default function WaveFadeInOutToggle(props) {
 
   return (
     <div>
-      <p>{props.name}</p>
+      <StyledText>{props.name}</StyledText>
       <StyledSliderBox>
         <StyledFadeInOutToggle {...props} />
         <ToggleSlider></ToggleSlider>
@@ -13,11 +13,15 @@ export default function WaveFadeInOutToggle(props) {
   );
 }
 
+const StyledText = styled.p`
+  font-size: 1.3vw;
+`;
+
 const StyledSliderBox = styled.label`
   position: relative;
   display: inline-block;
-  width: 70px;
-  height: 30px;
+  width: 6vw;
+  height: 5vh;
   vertical-align: middle;
 `;
 
@@ -36,8 +40,8 @@ const ToggleSlider = styled.span`
   &:before {
     position: absolute;
     content: "";
-    height: 23px;
-    width: 23px;
+    height: 3.7vh;
+    width: 2vw;
     left: 4px;
     bottom: 4px;
     border-radius: 50%;
@@ -56,8 +60,8 @@ const StyledFadeInOutToggle = styled.input`
   }
 
   &:checked + ${ToggleSlider}:before {
-    -webkit-transform: translateX(36px);
-    -ms-transform: translateX(36px);
-    transform: translateX(36px);
+    -webkit-transform: translateX(5.5vh);
+    -ms-transform: translateX(5.5vh);
+    transform: translateX(5.5vh);
   }
 `;

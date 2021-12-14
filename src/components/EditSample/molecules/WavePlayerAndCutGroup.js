@@ -107,7 +107,7 @@ export default function WavePlayerAndCutGroup({ waveHandler }) {
 
 const EditButtonWrapper = styled.div`
   display: flex;
-  height: 50px;
+  height: 10vh;
   justify-content: space-around;
-  margin: 15px 5px 10px 5px;
+  margin: 1.5vw 0.5vw 1vw 0.5vw;
 `;

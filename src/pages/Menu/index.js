@@ -15,8 +15,10 @@ export default function MenuPage() {
 const StyledMenuPage = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   height: 100vh;
+  width: 100vw;
   opacity: 0.8;
   background-image: url(${backgroundImage});
 `;

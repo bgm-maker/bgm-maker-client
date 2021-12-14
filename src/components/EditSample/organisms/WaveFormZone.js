@@ -42,23 +42,23 @@ export default function WaveFormZone({ setWaveHandler, sampleUrl }) {
 
 const StyledWaveFormZone = styled.div`
   display: flex;
-  margin-top: 90px;
+  margin-top: 5vw;
 `;
 
 const StyledWaveFormWrapper = styled.div`
-  height: 400px;
+  height: 65vh;
   margin: 0px 0px 30px 50px;
   background: white;
-  padding: 20px;
+  padding: 1vw;
   border-radius: 30px;
   box-shadow: 4px 4px 10px 2px #654e46;
 `;
 
 const WaveForm = styled.div`
-  height: 400px;
-  width: 800px;
+  height: 60vh;
+  width: 60vw;
 `;
 
 const TimeLine = styled.div`
-  height: 70px;
+  height: 40vh;
 `;

@@ -48,8 +48,8 @@ const StyledEffectGroup = styled.div`
   position: relative;
   align-items: center;
   justify-content: center;
-  width: 160px;
-  height: 70px;
+  width: 13vw;
+  height: 11.2vh;
   border: 0.1px solid black;
   border-radius: 4px;
   margin-left: 5px;

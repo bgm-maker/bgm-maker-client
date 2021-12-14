@@ -16,9 +16,9 @@ export default function WaveEditZone({ waveHandler }) {
 }
 
 const EditAndPlayerWrapper = styled.div`
-  width: 280px;
-  height: 443px;
-  margin: 88px 0 0 50px;
+  width: 25vw;
+  height: 69vh;
+  margin: 5vw 0 0 4vw;
   background: white;
   border-radius: 30px;
   box-shadow: 4px 4px 10px 2px #654e46;

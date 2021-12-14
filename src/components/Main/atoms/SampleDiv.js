@@ -69,19 +69,19 @@ const StyledSampleDiv = styled.div`
   position: relative;
   width: ${(props) => {
     if (!props.isDropped) {
-      return "140px";
+      return "12vw";
     }
 
     const currentNoteCount = ((props.dropZoneCount - props.measure) * 4) - (props.quarter - 1);
-    const sampleCount = Math.floor(props.sample.sample.buffer._buffer.duration / 0.49);
+    const sampleCount = Math.ceil(props.sample.sample.buffer._buffer.duration / 0.49);
 
     if (currentNoteCount < sampleCount) {
-      return `${currentNoteCount * 30.9}px`;
+      return `${currentNoteCount * 2.18}vw`;
     }
-    return `${sampleCount * 30.9}px`;
+    return `${sampleCount * 2.18}vw`;
   }};
-  height: 40px;
-  margin-right: 70px;
+  height: 6vh;
+  margin-right: 4vw;
   border-style: solid;
   border-width: 0.1px;
   border-color: #E6E6E6;
@@ -103,9 +103,9 @@ const StyledSampleDiv = styled.div`
 `;
 
 const StyledOrderText = styled.div`
-  font-size: 20px;
+  font-size: 2vh;
 `;
 
 const StyledManualText = styled.div`
-  font-size: 10px;
+  font-size: 1vh;
 `;

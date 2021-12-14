@@ -103,7 +103,7 @@ export default function PlayerZone() {
 
 const EditButtonWrapper = styled.div`
   display: flex;
-  width: 1200px;
+  width: 90vw;
   height: 50px;
   justify-content: center;
   margin: 0px 5px 10px 5px;

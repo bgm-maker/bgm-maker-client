@@ -81,8 +81,10 @@ export default function SequencerNote({ measure, quarter, dropZoneRowNum }) {
 };
 
 const StyledSingleNote = styled.div`
-  width: 27px;
-  height: 70px;
+  display: flex;
+  align-items: flex-end;
+  width: 2vw;
+  height: 10.7vh;
   margin: 1px;
   border-style: solid;
   border-width: 0.1px;
