@@ -8,6 +8,7 @@ export default function SequencerMeasureCount({ children }) {
 };
 
 const StyledMeasureCount = styled.div`
+  position: absolute;
   margin-left: 8px;
   word-break: break-all;
   word-wrap: break-word;

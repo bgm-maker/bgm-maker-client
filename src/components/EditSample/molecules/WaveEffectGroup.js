@@ -48,5 +48,5 @@ export default function WaveEffectGroup({ waveHandler }) {
 const EffectWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 30px 0 0 50px;
+  margin: 2vw 0 0 4vw;
 `;

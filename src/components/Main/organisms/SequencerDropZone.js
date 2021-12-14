@@ -40,8 +40,7 @@ export default function SequencerDropZone() {
 };
 
 const StyledDropZoneWrapper = styled.div`
-  margin: 3px;
-  margin-top: 12px;
+  margin-top: 4vh;
   overflow-x: scroll;
   overflow-y: hidden;
 `;
@@ -49,12 +48,12 @@ const StyledDropZoneWrapper = styled.div`
 const StyledButtonWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 1172px;
-  margin-left: 10px;
+  width: 88.5vw;
   margin-top: 6px;
 `;
 
 const StyledRowLine = styled.div`
   display: flex;
+  position: relative;
   align-items: flex-end;
 `;

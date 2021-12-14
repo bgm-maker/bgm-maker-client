@@ -68,6 +68,6 @@ const StyledSampleRowLine = styled.div`
 const StyledSampleWrapper = styled.div`
   display: flex;
   position: relative;
-  left: 33px;
-  width: 985px;
+  left: 2vw;
+  width: 80vw;
 `;

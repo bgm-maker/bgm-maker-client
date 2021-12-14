@@ -31,5 +31,5 @@ export default function WaveFadeInOutGroup({ waveHandler }) {
 const FadeInOutToggleWrapper = styled.div`
   display: flex;
   justify-content: space-around;
-  margin-top: 30px;
+  margin-top: 3vmin;
 `;

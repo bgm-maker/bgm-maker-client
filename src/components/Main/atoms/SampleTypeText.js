@@ -9,13 +9,13 @@ export default function SampleTypeText({ children }) {
 
 const StyledSampleType = styled.div`
   display: flex;
-  width: 120px;
-  height: 40px;
+  width: 10vw;
+  height: 1vh;
   margin-top: 7px;
   margin-right: 10px;
-  align-items: center;
+  padding-top: 0.5vw;
   justify-content: center;
-  font-size: 20px;
+  font-size: 1.2vw;
   font-weight: lighter;
   font-family: lato;
 `;
